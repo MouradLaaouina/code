@@ -1,0 +1,904 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- Meta essentiels -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Alliance Synergie Santé (A2S) est une société marocaine spécialisée dans des solutions dermo-cosmétiques innovantes, basée à Casablanca.">
+  <meta name="keywords" content="dermo-cosmétique, santé, beauté, Maroc, A2S, gynécologie, dermatologie, médecine esthétique, D-White, DCAP, Sensilis, Cumlaude Lab, Castéra, Buccotherm, Babé, Florame">
+  <meta name="author" content="Alliance Synergie Santé">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://a2s.ma">
+  <meta property="og:title" content="Alliance Synergie Santé - Solutions Dermo-Cosmétiques">
+  <meta property="og:description" content="A2S propose au Maroc des solutions dermo-cosmétiques innovantes et durables pour les professionnels de la santé et de la beauté.">
+  <meta property="og:image" content="https://a2s.ma/logoa2s.png">
+  
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://a2s.ma">
+  <meta name="twitter:title" content="Alliance Synergie Santé - Accueil">
+  <meta name="twitter:description" content="Découvrez A2S, votre partenaire pour des solutions dermo-cosmétiques innovantes au Maroc.">
+  <meta name="twitter:image" content="https://a2s.ma/logoa2s.png">
+  
+  <title>Alliance Synergie Santé – Solutions Dermo-Cosmétique Premium</title>
+  
+  <!-- Preconnect pour les ressources externes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.tailwindcss.com">
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              DEFAULT: '#2f6b2f',
+              dark: '#255825',
+              light: '#e8f5ee',
+              accent: '#4a9d4a'
+            }
+          },
+          fontFamily: {
+            display: ['Playfair Display', 'serif']
+          }
+        }
+      }
+    };
+  </script>
+  
+  <!-- CSS Critical inline -->
+  <style>
+    :root {
+      --bg: #f8faf9;
+      --text: #1a3a1d;
+      --cta: #2f6b2f;
+      --accent: #4a9d4a;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+    
+    /* Smooth scroll */
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    /* Hero animation */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .hero-content {
+      animation: fadeInUp 1s ease-out 0.3s both;
+    }
+    
+    /* Marquee animation */
+    .marquee {
+      overflow: hidden;
+      white-space: nowrap;
+      position: relative;
+    }
+    
+    .partners-track {
+      display: inline-flex;
+      animation: marquee-scroll 30s linear infinite;
+      gap: 3rem;
+    }
+    
+    @keyframes marquee-scroll {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+    
+    .marquee:hover .partners-track {
+      animation-play-state: paused;
+    }
+    
+    /* Gallery hover effects */
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    
+    .gallery-item:hover {
+      transform: translateY(-5px);
+    }
+    
+    .gallery-item img {
+      transition: transform 0.5s ease;
+    }
+    
+    .gallery-item:hover img {
+      transform: scale(1.1);
+    }
+    
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      display: flex;
+      align-items: flex-end;
+      padding: 1rem;
+      color: white;
+    }
+    
+    .gallery-item:hover .gallery-overlay {
+      opacity: 1;
+    }
+    
+    /* KPI Counter */
+    .kpi-card {
+      transition: all 0.3s ease;
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    }
+    
+    .kpi-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 24px rgba(47,107,47,0.15);
+    }
+    
+    .kpi-value {
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--cta);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    
+    /* Dark mode */
+    .dark-mode {
+      --bg: #0f1f0f;
+      --text: #e8f5ee;
+      background: var(--bg);
+      color: var(--text);
+    }
+    
+    .dark-mode .kpi-card,
+    .dark-mode .gallery-item {
+      background: #1a3a1d;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    }
+    
+    .dark-mode .partner-logo {
+      filter: brightness(0.9);
+    }
+    
+    /* Lightbox block removed (replaced by unified styles below) */
+    
+    /* Navigation styles */
+    nav {
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    
+    .nav-link {
+      position: relative;
+      transition: color 0.3s ease;
+    }
+    
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--cta);
+      transition: width 0.3s ease;
+    }
+    
+    .nav-link:hover::after {
+      width: 100%;
+    }
+    
+    /* CTA Button */
+    .cta-button {
+      background: var(--cta);
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(47,107,47,0.3);
+    }
+    
+    .cta-button:hover {
+      background: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(47,107,47,0.4);
+    }
+
+    /* Realistic gold text effect (HTML/CSS/SVG only) */
+    .gold-text {
+      position: relative;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      background-image:
+        linear-gradient(90deg,
+          #3b2f1a 0%,
+          #806b2a 10%,
+          #b08d57 20%,
+          #e6c766 35%,
+          #f7e27e 47%,
+          #a67c00 60%,
+          #d4af37 72%,
+          #b88a44 84%,
+          #3b2f1a 100%),
+        linear-gradient(115deg,
+          rgba(255,255,255,0) 45%,
+          rgba(255,255,255,0.9) 50%,
+          rgba(255,255,255,0) 55%);
+      background-size: 100% 100%, 220% 100%;
+      background-position: 0 0, -180% 0;
+      background-repeat: no-repeat;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 1px 0 rgba(0,0,0,0.35), 0 6px 12px rgba(0,0,0,0.25);
+      animation: gold-shine 5.5s linear infinite;
+    }
+    @keyframes gold-shine {
+      0%   { background-position: 0 0, -180% 0; }
+      100% { background-position: 0 0, 180% 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .gold-text { animation: none; }
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .kpi-value {
+        font-size: 2rem;
+      }
+      
+      .partners-track {
+        gap: 2rem;
+      }
+    }
+
+    /* Lightbox modal */
+    #lightbox-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 16px;
+    }
+    #lightbox-overlay.open { display: flex; }
+    #lightbox-content {
+      background: #fff;
+      color: var(--text);
+      border-radius: 12px;
+      padding: 16px;
+      max-width: 90vw;
+      width: min(560px, 90vw);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      position: relative;
+      text-align: center;
+    }
+    #lightbox-img {
+      max-width: 100%;
+      max-height: 60vh;
+      height: auto;
+      object-fit: contain;
+      border-radius: 10px;
+      transform: scale(0.85);
+      transition: transform 300ms ease;
+    }
+    #lightbox-overlay.open #lightbox-img.animate-in { transform: scale(1); }
+    #lightbox-text { margin-top: 12px; font-weight: 700; letter-spacing: 0.3px; min-height: 1.5em; }
+    #lightbox-close {
+      position: absolute;
+      top: 8px; right: 8px;
+      background: rgba(0,0,0,0.6);
+      color: #fff;
+      border: none;
+      width: 32px; height: 32px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 20px; line-height: 32px;
+      display: grid; place-items: center;
+    }
+    #lightbox-close:hover { background: rgba(0,0,0,0.75); }
+  </style>
+  <script src="script/nav-loader.js" defer></script>
+  <script src="script/footer-loader.js" defer></script>
+</head>
+
+<body>
+  
+  <div id="nav-placeholder" class="min-h-[60px] bg-white"></div>
+
+  <!-- Hero Section -->
+  <section id="accueil" class="relative w-full overflow-hidden h-[60vh] md:h-[70vh] lg:h-[80vh]" role="banner">
+    <img src="images/banner.png" 
+         alt="Bannière Alliance Synergie Santé - Solutions dermo-cosmétiques innovantes" 
+         class="absolute inset-0 w-full h-full object-cover">
+    <div class="absolute inset-0 bg-gradient-to-b from-black/40 to-black/60"></div>
+    
+    <div class="relative h-full flex items-center justify-center text-center px-4">
+      <div class="hero-content max-w-4xl flex flex-col items-center">
+        <img src="images/logoa2s.svg" alt="Logo Alliance Synergie Santé" class="w-28 md:w-36 lg:w-44 mb-6 drop-shadow-xl" loading="eager" width="176" height="176">
+        <h1 class="text-4xl md:text-6xl lg:text-7xl font-display font-bold gold-text mb-6">
+          Alliance Synergie Santé
+        </h1>
+        <p class="text-xl md:text-2xl text-white/90 mb-8">
+          Solutions dermo-cosmétiques innovantes et durables pour les professionnels de la santé
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main class="max-w-7xl mx-auto px-4 py-16">
+    
+    <!-- Introduction -->
+    <section class="text-center mb-20">
+      <h2 class="text-3xl md:text-4xl font-display font-bold text-gray-800 mb-6">
+        Votre partenaire en dermo-cosmétique au Maroc
+      </h2>
+      <p class="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
+        Depuis 15 ans, A2S accompagne les professionnels de la santé et de la beauté avec 
+        des solutions certifiées, innovantes et respectueuses de l'environnement.
+      </p>
+      <p class="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
+        Nous sommes fiers de contribuer au bien-être de milliers de clients à travers 
+        tout le Maroc.
+      </p>
+    </section>
+
+    <!-- Galerie d'images -->
+    <section id="galerie" class="mb-20">
+      <h2 class="text-3xl font-display font-bold text-gray-800 mb-8 text-center">Notre Univers</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <article class="gallery-item rounded-xl overflow-hidden shadow-lg">
+          <img src="images/Laboratoire.png" 
+               alt="Laboratoire de recherche A2S pour solutions dermo-cosmétiques" 
+               class="w-full h-64 object-cover"
+               loading="lazy">
+          <div class="gallery-overlay">
+            <h3 class="text-lg font-semibold">Laboratoire de recherche</h3>
+          </div>
+        </article>
+        
+        <article class="gallery-item rounded-xl overflow-hidden shadow-lg">
+          <img src="https://images.unsplash.com/photo-1631549916768-4119b2e5f926?w=600&q=80" 
+               alt="Équipe de production A2S pour produits dermo-cosmétiques" 
+               class="w-full h-64 object-cover"
+               loading="lazy">
+          <div class="gallery-overlay">
+            <h3 class="text-lg font-semibold">Équipe de production</h3>
+          </div>
+        </article>
+        
+        <article class="gallery-item rounded-xl overflow-hidden shadow-lg">
+          <img src="images/Produits dermo.png" 
+               alt="Produits dermo-cosmétiques certifiés A2S" 
+               class="w-full h-64 object-cover"
+               loading="lazy">
+          <div class="gallery-overlay">
+            <h3 class="text-lg font-semibold">Produits dermo-cosmétiques</h3>
+          </div>
+        </article>
+        
+        <article class="gallery-item rounded-xl overflow-hidden shadow-lg">
+          <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=600&q=80" 
+               alt="Centre de distribution A2S pour solutions dermo-cosmétiques" 
+               class="w-full h-64 object-cover"
+               loading="lazy">
+          <div class="gallery-overlay">
+            <h3 class="text-lg font-semibold">Centre de distribution</h3>
+          </div>
+        </article>
+        
+      </div>
+    </section>
+
+    <!-- Partenaires -->
+    <section id="partenaires" class="mb-20">
+      <h2 class="text-3xl font-display font-bold text-gray-800 mb-8 text-center">Nos Partenaires</h2>
+      <div class="marquee bg-white py-8 rounded-xl shadow-md">
+        <div class="partners-track">
+          <!-- Premier set -->
+          <div class="flex items-center justify-center min-w-[200px] gap-3">
+            <img src="images/dcap.svg" alt="DCAP" class="h-10 w-auto object-contain" loading="lazy">
+            <span class="text-2xl font-bold text-gray-700">DCAP</span>
+          </div>
+          <div class="flex items-center justify-center min-w-[200px] gap-3">
+            <img src="images/dwhite.svg" alt="D-White" class="h-10 w-auto object-contain" loading="lazy">
+            <span class="text-2xl font-bold text-gray-700">D-White</span>
+          </div>
+          <div class="flex items-center justify-center min-w-[200px] gap-3">
+            <img src="images/sensilis.png" alt="Sensilis" class="h-10 w-auto object-contain" loading="lazy">
+            <span class="text-2xl font-bold text-gray-700">Sensilis</span>
+          </div>
+          <div class="flex items-center justify-center min-w-[220px] gap-3">
+            <img src="images/cumlaude lab.png" alt="Cumlaude Lab" class="h-10 w-auto object-contain" loading="lazy">
+            <span class="text-2xl font-bold text-gray-700">Cumlaude Lab</span>
+          </div>
+          <div class="flex items-center justify-center min-w-[200px] gap-3">             <img src="images/castera.png" alt="Castéra" class="h-10 w-auto object-contain" loading="lazy">             <span class="text-2xl font-bold text-gray-700">Castéra</span>           </div>
+          <div class="flex items-center justify-center min-w-[220px] gap-3">
+            <img src="images/buccotherm.svg" alt="Buccotherm" class="h-10 w-auto object-contain" loading="lazy">
+            <span class="text-2xl font-bold text-gray-700">Buccotherm</span>
+          </div>
+          <div class="flex items-center justify-center min-w-[200px] gap-3">             <img src="images/babe (2).png" alt="Babé" class="h-10 w-auto object-contain" loading="lazy">             <span class="text-2xl font-bold text-gray-700">Babé</span>           </div>
+          <div class="flex items-center justify-center min-w-[200px] gap-3">
+            <img src="images/florame.png" alt="Florame" class="h-10 w-auto object-contain" loading="lazy">
+            <span class="text-2xl font-bold text-gray-700">Florame</span>
+          </div>
+          
+          <!-- Duplication pour boucle infinie -->
+          <div class="flex items-center justify-center min-w-[200px] gap-3">
+            <img src="images/dcap.svg" alt="DCAP" class="h-10 w-auto object-contain" loading="lazy">
+            <span class="text-2xl font-bold text-gray-700">DCAP</span>
+          </div>
+          <div class="flex items-center justify-center min-w-[200px] gap-3">
+            <img src="images/dwhite.svg" alt="D-White" class="h-10 w-auto object-contain" loading="lazy">
+            <span class="text-2xl font-bold text-gray-700">D-White</span>
+          </div>
+          <div class="flex items-center justify-center min-w-[200px] gap-3">
+            <img src="images/sensilis.png" alt="Sensilis" class="h-10 w-auto object-contain" loading="lazy">
+            <span class="text-2xl font-bold text-gray-700">Sensilis</span>
+          </div>
+          <div class="flex items-center justify-center min-w-[220px] gap-3">
+            <img src="images/cumlaude lab.png" alt="Cumlaude Lab" class="h-10 w-auto object-contain" loading="lazy">
+            <span class="text-2xl font-bold text-gray-700">Cumlaude Lab</span>
+          </div>
+          <div class="flex items-center justify-center min-w-[200px] gap-3">             <img src="images/castera.png" alt="Castéra" class="h-10 w-auto object-contain" loading="lazy">             <span class="text-2xl font-bold text-gray-700">Castéra</span>           </div>
+          <div class="flex items-center justify-center min-w-[200px] gap-3">             <img src="images/babe (2).png" alt="Babé" class="h-10 w-auto object-contain" loading="lazy">             <span class="text-2xl font-bold text-gray-700">Babé</span>           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Chiffres clés -->
+    <section id="chiffres" class="mb-20">
+      <h2 class="text-3xl font-display font-bold text-gray-800 mb-8 text-center">Chiffres Clés</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <div class="kpi-card text-center">
+          <div class="kpi-value" data-target="15">0</div>
+          <div class="text-gray-600 font-medium">Années d'expérience</div>
+        </div>
+        
+        <div class="kpi-card text-center">
+          <div class="kpi-value" data-target="50">0</div>
+          <div class="text-gray-600 font-medium">Produits certifiés</div>
+        </div>
+        
+        <div class="kpi-card text-center">
+          <div class="kpi-value" data-target="200">0</div>
+          <div class="text-gray-600 font-medium">Partenaires nationaux</div>
+        </div>
+        
+        <div class="kpi-card text-center">
+          <div class="kpi-value" data-target="10000">0</div>
+          <div class="text-gray-600 font-medium">Clients satisfaits</div>
+        </div>
+        
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer placeholder (loaded by footer-loader.js) -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Footer (moved to pied-de-page.html) -->
+  <!--
+  <footer id="contact" class="bg-gradient-to-br from-green-800 to-green-900 text-white py-16" role="contentinfo">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+        
+        <div>
+          <h3 class="text-2xl font-display font-bold mb-4">Alliance Synergie Santé</h3>
+          <p class="text-green-100 leading-relaxed">
+            A2S, basé à Casablanca, propose des solutions dermo-cosmétiques innovantes et durables 
+            pour les professionnels de la santé et de la beauté au Maroc.
+          </p>
+        </div>
+        
+        <div>
+          <h3 class="text-2xl font-display font-bold mb-4">Contact</h3>
+          <address class="not-italic text-green-100 space-y-3">
+            <p>145 avenue Hassan II, 1er ét., appt. 3</p>
+            <p>Parc de la Ligue arabe</p>
+            <p>Casablanca, Maroc</p>
+            <p class="mt-4">
+              <a href="tel:+212522123456" class="hover:text-white transition-colors">
+                📞 +212 522 123 456
+              </a>
+            </p>
+            <p>
+              <a href="mailto:contact@a2s.ma" class="hover:text-white transition-colors">
+                ✉️ contact@a2s.ma
+              </a>
+            </p>
+          </address>
+        </div>
+        
+        <div>
+          <h3 class="text-2xl font-display font-bold mb-4">Suivez-nous</h3>
+          <div class="flex gap-4 mb-6">
+            <a href="https://www.facebook.com/alliancesynergiesanteofficiel" 
+               aria-label="Facebook" 
+               class="bg-white/10 p-3 rounded-full hover:bg-white/20 transition-colors">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/>
+              </svg>
+            </a>
+            <a href="https://www.linkedin.com/company/a2smaroc" 
+               aria-label="LinkedIn" 
+               class="bg-white/10 p-3 rounded-full hover:bg-white/20 transition-colors">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z"/>
+              </svg>
+            </a>
+          </div>
+          
+          </div>
+        
+      </div>
+      
+      <div class="border-t border-white/20 mt-12 pt-8 text-center text-green-100">
+        <p>&copy; 2025 Alliance Synergie Santé (A2S). Tous droits réservés.</p>
+      </div>
+    </div>
+  </footer> -->
+
+  <!-- Lightbox -->
+  <div id="lightbox-overlay" role="dialog" aria-modal="true" aria-label="Visionneuse d'image">
+    <div id="lightbox-content">
+      <button id="lightbox-close" aria-label="Fermer la visionneuse">&times;</button>
+      <img id="lightbox-img" src="" alt="Image agrandie">
+      <p id="lightbox-text" aria-live="polite"></p>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  
+  <script>
+    // Wait for GSAP to load
+    window.addEventListener('load', () => {
+      
+      // GSAP ScrollTrigger Animations
+      if (typeof gsap !== 'undefined') {
+        gsap.registerPlugin(ScrollTrigger);
+        
+        // Animate sections on scroll
+        gsap.utils.toArray('section').forEach(section => {
+          gsap.from(section, {
+            y: 60,
+            opacity: 0,
+            duration: 1,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: section,
+              start: 'top 80%',
+              toggleActions: 'play none none reverse'
+            }
+          });
+        });
+        
+        // Animate gallery items
+        gsap.utils.toArray('.gallery-item').forEach((item, i) => {
+          gsap.from(item, {
+            y: 50,
+            opacity: 0,
+            duration: 0.8,
+            delay: i * 0.1,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: item,
+              start: 'top 85%'
+            }
+          });
+        });
+      }
+      
+      // KPI Counter Animation
+      const animateCounter = (element) => {
+        const target = parseInt(element.getAttribute('data-target'));
+        let current = 0;
+        const increment = target / 60;
+        const duration = 2000;
+        const stepTime = duration / 60;
+        
+        const timer = setInterval(() => {
+          current += increment;
+          if (current >= target) {
+            element.textContent = target.toLocaleString() + '+';
+            clearInterval(timer);
+          } else {
+            element.textContent = Math.floor(current).toLocaleString();
+          }
+        }, stepTime);
+      };
+      
+      // Intersection Observer for counters
+      const counters = document.querySelectorAll('.kpi-value');
+      const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && entry.target.textContent === '0') {
+            animateCounter(entry.target);
+          }
+        });
+      }, { threshold: 0.5 });
+      
+      counters.forEach(counter => counterObserver.observe(counter));
+      
+      // Lightbox moved below with typewriter behavior
+      // Smooth scroll for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href');
+          if (targetId === '#') return;
+          
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            const navHeight = document.querySelector('nav').offsetHeight;
+            const targetPosition = targetElement.offsetTop - navHeight - 20;
+            
+            window.scrollTo({
+              top: targetPosition,
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+      
+      // Mobile menu toggle
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+      const navLinks = document.querySelector('nav .hidden.md\\:flex');
+      
+      if (mobileMenuBtn && navLinks) {
+        mobileMenuBtn.addEventListener('click', () => {
+          navLinks.classList.toggle('hidden');
+          navLinks.classList.toggle('flex');
+          navLinks.classList.toggle('flex-col');
+          navLinks.classList.toggle('absolute');
+          navLinks.classList.toggle('top-full');
+          navLinks.classList.toggle('left-0');
+          navLinks.classList.toggle('right-0');
+          navLinks.classList.toggle('bg-white');
+          navLinks.classList.toggle('shadow-lg');
+          navLinks.classList.toggle('p-4');
+        });
+      }
+      
+      // Parallax effect on hero
+      const hero = document.querySelector('section[role="banner"]');
+      const heroImg = hero ? hero.querySelector('img') : null;
+      
+      if (heroImg) {
+        window.addEventListener('scroll', () => {
+          const scrolled = window.pageYOffset;
+          if (scrolled < hero.offsetHeight) {
+            heroImg.style.transform = `translateY(${scrolled * 0.5}px)`;
+          }
+        });
+      }
+      
+      // Add loading animation to images
+      const images = document.querySelectorAll('img[loading="lazy"]');
+      images.forEach(img => {
+        img.addEventListener('load', function() {
+          this.style.opacity = '0';
+          this.style.transition = 'opacity 0.5s ease';
+          setTimeout(() => {
+            this.style.opacity = '1';
+          }, 10);
+        });
+      });
+      
+      // Scroll to top button
+      const scrollToTopBtn = document.createElement('button');
+      scrollToTopBtn.innerHTML = '↑';
+      scrollToTopBtn.className = 'fixed bottom-8 right-8 bg-green-700 text-white w-12 h-12 rounded-full shadow-lg hover:bg-green-800 transition-all opacity-0 pointer-events-none z-50';
+      scrollToTopBtn.setAttribute('aria-label', 'Retour en haut');
+      document.body.appendChild(scrollToTopBtn);
+      
+      window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 500) {
+          scrollToTopBtn.style.opacity = '1';
+          scrollToTopBtn.style.pointerEvents = 'auto';
+        } else {
+          scrollToTopBtn.style.opacity = '0';
+          scrollToTopBtn.style.pointerEvents = 'none';
+        }
+      });
+      
+      scrollToTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+      
+      // Form validation (if contact form exists)
+      const contactForm = document.querySelector('form');
+      if (contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          
+          // Get form data
+          const formData = new FormData(contactForm);
+          const data = Object.fromEntries(formData);
+          
+          // Basic validation
+          let isValid = true;
+          const requiredFields = contactForm.querySelectorAll('[required]');
+          
+          requiredFields.forEach(field => {
+            if (!field.value.trim()) {
+              isValid = false;
+              field.classList.add('border-red-500');
+            } else {
+              field.classList.remove('border-red-500');
+            }
+          });
+          
+          if (isValid) {
+            // Show success message
+            alert('Merci pour votre message ! Nous vous répondrons dans les plus brefs délais.');
+            contactForm.reset();
+          } else {
+            alert('Veuillez remplir tous les champs obligatoires.');
+          }
+        });
+      }
+      
+      // Add hover effect to CTA buttons
+      document.querySelectorAll('.cta-button').forEach(btn => {
+        btn.addEventListener('mouseenter', function() {
+          this.style.transform = 'translateY(-2px) scale(1.05)';
+        });
+        
+        btn.addEventListener('mouseleave', function() {
+          this.style.transform = 'translateY(0) scale(1)';
+        });
+      });
+      
+      // Lazy loading fallback for older browsers
+      if ('IntersectionObserver' in window) {
+        const lazyImages = document.querySelectorAll('img[loading="lazy"]');
+        const imageObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const img = entry.target;
+              if (img.dataset.src) {
+                img.src = img.dataset.src;
+              }
+              imageObserver.unobserve(img);
+            }
+          });
+        });
+        
+        lazyImages.forEach(img => imageObserver.observe(img));
+      }
+      
+      // Analytics tracking (placeholder)
+      const trackEvent = (category, action, label) => {
+        console.log(`Event tracked: ${category} - ${action} - ${label}`);
+        // Replace with actual analytics code (Google Analytics, etc.)
+      };
+      
+      // Track CTA clicks
+      document.querySelectorAll('.cta-button').forEach(btn => {
+        btn.addEventListener('click', () => {
+          trackEvent('CTA', 'Click', btn.textContent);
+        });
+      });
+      // Lightbox for gallery with typewriter text
+      const overlay = document.getElementById('lightbox-overlay');
+      const lightboxImg = document.getElementById('lightbox-img');
+      const lightboxClose = document.getElementById('lightbox-close');
+      const lightboxText = document.getElementById('lightbox-text');
+      const TYPE_TEXT = 'xxxxxxx laaouina mourad xxxxxxxx';
+      let typeTimer = null;
+
+      function typewriter(text, speed = 45) {
+        let i = 0;
+        lightboxText.textContent = '';
+        clearInterval(typeTimer);
+        typeTimer = setInterval(() => {
+          lightboxText.textContent += text[i] || '';
+          i++;
+          if (i > text.length) {
+            clearInterval(typeTimer);
+          }
+        }, speed);
+      }
+
+      function openLightbox(src) {
+        overlay.classList.add('open');
+        lightboxImg.classList.remove('animate-in');
+        lightboxImg.src = src;
+        setTimeout(() => lightboxImg.classList.add('animate-in'), 20);
+        typewriter(TYPE_TEXT, 45);
+      }
+
+      function closeLightbox() {
+        overlay.classList.remove('open');
+        lightboxImg.classList.remove('animate-in');
+        lightboxImg.src = '';
+        lightboxText.textContent = '';
+        clearInterval(typeTimer);
+      }
+
+      // Open on click (image or overlay layer inside gallery)
+      document.querySelectorAll('.gallery-item img, .gallery-item .gallery-overlay').forEach(el => {
+        el.addEventListener('click', (e) => {
+          const item = e.currentTarget.closest('.gallery-item');
+          const imgEl = item ? item.querySelector('img') : null;
+          if (imgEl && imgEl.src) openLightbox(imgEl.src);
+        });
+      });
+
+      // Close interactions
+      lightboxClose.addEventListener('click', closeLightbox);
+      overlay.addEventListener('click', (e) => { if (e.target === overlay) closeLightbox(); });
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && overlay.classList.contains('open')) closeLightbox(); });
+
+      // Social clicks tracking moved to script/pied-de-page.js
+
+      console.log('✅ A2S Premium Website loaded successfully!');
+    });
+  </script>
+</body>
+</html>
+
+
+
+

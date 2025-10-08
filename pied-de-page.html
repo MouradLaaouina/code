@@ -1,0 +1,151 @@
+<!-- Pied de page responsive A2S -->
+<footer id="contact" class="footer-a2s" role="contentinfo" aria-label="Pied de page Alliance Synergie Santé">
+  <style>
+    /* ====== FOOTER RESPONSIVE A2S ====== */
+    .footer-a2s {
+      --g1:#065f46; --g2:#064e3b; --white:#fff; --t1:#d1fae5;
+      background: linear-gradient(135deg, var(--g1), var(--g2));
+      color: var(--white);
+      font-family: system-ui, sans-serif;
+      padding: 2rem 1rem;
+      border-top-left-radius: 1rem;
+      border-top-right-radius: 1rem;
+      box-shadow: 0 -3px 10px rgba(0,0,0,.2);
+    }
+
+    /* ====== Grille ====== */
+    .a2s-container {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      text-align: center;
+    }
+    @media (min-width: 700px) {
+      .a2s-container {
+        grid-template-columns: repeat(3, 1fr);
+        text-align: left;
+      }
+    }
+
+    /* ====== Titres et textes ====== */
+    .a2s-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .a2s-text, .a2s-address p {
+      font-size: 0.9rem;
+      color: var(--t1);
+      line-height: 1.5;
+      margin: .25rem 0;
+    }
+
+    /* ====== Liens ====== */
+    .a2s-link {
+      color: var(--t1);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .a2s-link:hover {
+      color: var(--white);
+    }
+
+    /* ====== Icônes sociales ====== */
+    .a2s-social {
+      display: flex;
+      justify-content: center;
+      gap: 0.6rem;
+      margin-top: 0.6rem;
+    }
+    @media (min-width: 700px) {
+      .a2s-social { justify-content: flex-start; }
+    }
+    .a2s-ico {
+      width: 38px;
+      height: 38px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: rgba(255,255,255,.1);
+      color: var(--white);
+      transition: all 0.2s ease;
+    }
+    .a2s-ico:hover {
+      background: rgba(255,255,255,.2);
+      transform: translateY(-2px);
+    }
+
+    /* ====== Bas de page ====== */
+    .a2s-bottom {
+      border-top: 1px solid rgba(255,255,255,.25);
+      margin-top: 1.5rem;
+      padding-top: 1rem;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--t1);
+    }
+
+    /* ====== Responsivité mobile ====== */
+    @media (max-width: 500px) {
+      .footer-a2s { padding: 1.5rem 0.8rem; }
+      .a2s-title { font-size: 1rem; }
+      .a2s-text, .a2s-address p { font-size: 0.85rem; }
+      .a2s-ico { width: 34px; height: 34px; }
+    }
+  </style>
+
+  <div class="a2s-container">
+    <!-- Bloc Présentation -->
+    <div>
+      <h3 class="a2s-title">Alliance Synergie Santé</h3>
+      <p class="a2s-text">
+        A2S, basé à Casablanca, propose des solutions dermo-cosmétiques innovantes et durables
+        pour les professionnels de la santé et de la beauté au Maroc.
+      </p>
+    </div>
+
+    <!-- Bloc Contact -->
+    <div>
+      <h3 class="a2s-title">Contact</h3>
+      <address class="a2s-address" style="font-style: normal;">
+        <p>145 avenue Hassan II, 1er ét., appt. 3</p>
+        <p>Casablanca, Maroc</p>
+        <p><a href="tel:+212522123456" class="a2s-link">☎️ +212 522 123 456</a></p>
+        <p><a href="mailto:contact@a2s.ma" class="a2s-link">✉️ contact@a2s.ma</a></p>
+      </address>
+    </div>
+
+    <!-- Bloc Réseaux sociaux -->
+    <div>
+      <h3 class="a2s-title">Suivez-nous</h3>
+      <div class="a2s-social">
+        <!-- Facebook -->
+        <a class="a2s-ico" aria-label="Facebook" href="https://www.facebook.com/alliancesynergiesanteofficiel" target="_blank" rel="noopener noreferrer">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M9 8H6v4h3v12h5V12h3.6l.4-4h-4V6.3C14 5.3 14.2 5 15.1 5H18V0h-3.8C10.6 0 9 1.6 9 4.6V8z"/></svg>
+        </a>
+        <!-- LinkedIn -->
+        <a class="a2s-ico" aria-label="LinkedIn" href="https://www.linkedin.com/company/a2smaroc" target="_blank" rel="noopener noreferrer">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5A2.48 2.48 0 1 1 0 3.5a2.48 2.48 0 0 1 4.98 0zM5 8H0v16h5V8zm7.98 0H8v16h4.98v-8.4c0-4.67 6.02-5.05 6.02 0V24h4.99V13.87c0-7.88-8.92-7.59-11.01-3.71V8z"/></svg>
+        </a>
+        <!-- Instagram -->
+        <a class="a2s-ico" aria-label="Instagram" href="https://www.instagram.com/alliancesynergiesante" target="_blank" rel="noopener noreferrer">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M7 2C4.24 2 2 4.24 2 7v10c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5V7c0-2.76-2.24-5-5-5H7zm10 2c1.66 0 3 1.34 3 3v10c0 1.66-1.34 3-3 3H7c-1.66 0-3-1.34-3-3V7c0-1.66 1.34-3 3-3h10zm-5 3.5a4.5 4.5 0 1 0 0 9a4.5 4.5 0 0 0 0-9zm0 7.5a3 3 0 1 1 0-6a3 3 0 0 1 0 6zm5.5-7.75a1.25 1.25 0 1 1 0-2.5a1.25 1.25 0 0 1 0 2.5z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="a2s-bottom">
+    &copy; <span id="a2s-year">2025</span> Alliance Synergie Santé (A2S). Tous droits réservés.
+  </div>
+
+  <script>
+    // Mettre à jour automatiquement l'année
+    document.getElementById('a2s-year').textContent = new Date().getFullYear();
+  </script>
+</footer>

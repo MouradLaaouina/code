@@ -1,0 +1,95 @@
+/* Global auto light/dark theme */
+
+/* Base variables (light by default) */
+:root {
+  color-scheme: light dark;
+  --bg: #e9f0ea;
+  --text: #1a3a1d;
+  --muted: #5a7a5e;
+  --card: #ffffff;
+  --cta: #2f6b2f;
+  --cta-hover: #255825;
+  --border: #ecf0ed;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  /* Hauteur par défaut du nav (fallback si JS inactif) */
+  --navH: 60px;
+  /* Zone sûre pour encoches (iOS) */
+  --safe-top: env(safe-area-inset-top);
+  /* Offset additionnel entre le nav et le contenu (modifiable site-wide) */
+  --nav-offset: 8px;
+}
+
+/* Auto dark via system preference */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f1f0f;
+    --text: #e8f5ee;
+    --muted: #b7d0c1;
+    --card: #16251a;
+    --cta: #2f6b2f; /* keep brand */
+    --cta-hover: #3a8a3a;
+    --border: #26382e;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+  }
+}
+
+/* Also support manual toggle using body.dark (from navigation) */
+body.dark, .dark {
+  --bg: #0f1f0f;
+  --text: #e8f5ee;
+  --muted: #b7d0c1;
+  --card: #16251a;
+  --cta: #2f6b2f;
+  --cta-hover: #3a8a3a;
+  --border: #26382e;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+}
+
+/* Apply variables to page baseline */
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text); }
+
+/* Fallback pratique: si besoin d'un réglage via CSS uniquement,
+   décommentez la ligne suivante pour forcer un padding global basé sur --navH */
+/* body { padding-top: calc(var(--navH, 60px) + var(--nav-offset)); } */
+
+/* Sécurité encoches: ajoute l'aire sûre au padding-top du nav
+   (remplace py-4 top sans affecter le bottom) */
+nav.nav {
+  padding-top: calc(0.25rem + var(--safe-top, 0px));
+  padding-bottom: 0.25rem;
+  /* Fond argent (silver) + brillance */
+  background-image:
+    linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.35) 45%, rgba(255,255,255,0) 70%),
+    linear-gradient(135deg, #8F8F90 0%, #BDBDBF 25%, #DADADA 45%, #EFEFEF 60%, #D0D0D2 78%, #A7A7A9 100%);
+  background-size: 200% 100%, 100% 100%;
+  background-position: -150% 0, 0 0;
+  background-repeat: no-repeat;
+  animation: navShimmer 6s linear infinite;
+}
+
+@keyframes navShimmer {
+  0% { background-position: -150% 0, 0 0; }
+  100% { background-position: 150% 0, 0 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  nav.nav { animation: none; background-size: 100% 100%, 100% 100%; background-position: 0 0, 0 0; }
+}
+
+/* Décalage d'ancrage pour éviter que le nav ne masque les sections ciblées */
+[id] { scroll-margin-top: calc(var(--navH, 60px) + var(--nav-offset, 8px)); }
+
+/* Common component tweaks to honor theme */
+.kpi-card { background: var(--card) !important; color: var(--text); }
+.marquee { background: var(--card) !important; }
+#lightbox-content { background: var(--card) !important; color: var(--text) !important; }
+
+/* Links inside dark cards */
+a { color: inherit; }
+
+/* Tailwind helpers when body has .dark (manual/system via navigation) */
+.dark .text-gray-800,
+.dark .text-gray-700,
+.dark .text-gray-600 { color: #e5e7eb !important; }
+.dark .bg-white { background-color: #111827 !important; }

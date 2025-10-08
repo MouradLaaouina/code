@@ -1,0 +1,540 @@
+﻿<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Médiathèque – Alliance Synergie Santé</title>
+  <meta name="description" content="Photos et vidéos de la médiathèque : événements, équipe, produits et présentations." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://hammerjs.github.io/dist/hammer.min.js"></script>
+  <script src="script/nav-loader.js" defer></script>
+  <script src="script/footer-loader.js" defer></script>
+  <style>
+    :root {
+      --text: #1f2a44;
+      --muted: #6b7280;
+      --shadow: 0 4px 12px rgba(0,0,0,0.08);
+      --radius: max(1300px, 100vw);
+      --circ: calc(var(--radius) * 3.14);
+      --segments-x: 37;
+      --segments-y: 37;
+      --sphere-rotation-y: 0;
+      --sphere-rotation-x: 0;
+      --offset-x: 0;
+      --offset-y: 0;
+      --rot-y: calc((360deg / var(--segments-x)) / 2);
+      --rot-x: calc((360deg / var(--segments-y)) / 2);
+      --rot-y-delta: 0deg;
+      --item-width: calc((var(--circ) / var(--segments-x)));
+      --item-height: calc((var(--circ) / var(--segments-y)));
+      --item-size-x: 1;
+      --item-size-y: 1;
+      --bg-scrim: rgba(0, 0, 0, 0.6);
+      --bg: rgb(235, 235, 235);
+      --item-bg: rgb(225, 225, 225);
+      --gradient-center: rgba(235, 235, 235, 0);
+      --gradient-edge: rgba(235, 235, 235, 0.5);
+    }
+    body { font-family: 'Inter', sans-serif; touch-action: pan-y; } /* Améliore le scroll mobile */
+    .media-wrap { max-width: 1100px; margin: 0 auto; padding: 28px 16px; }
+    .media-hero { margin: 14px auto 0; background-image: linear-gradient(135deg, rgba(232,245,238,0.88), rgba(255,255,255,0.88)), url('images/Media.jpg'); background-size: cover; background-position: center; border-radius: 16px; box-shadow: var(--shadow); }
+    .media-hero .inner { padding: clamp(18px, 4vw, 32px); text-align: center; }
+    .media-hero h1 { margin: 0 0 6px; font-weight: 800; font-size: clamp(24px, 5vw, 36px); color: var(--text); }
+    .media-hero p { margin: 0; color: var(--muted); font-size: clamp(16px, 3vw, 18px); }
+    .media-hero.media-wrap { max-width: 760px; }
+    @media (max-width: 1024px) { .media-hero.media-wrap { max-width: 640px; } }
+    @media (max-width: 768px) { 
+      .media-hero.media-wrap { max-width: 100%; padding: 16px; } 
+      .media-hero h1 { font-size: clamp(20px, 4vw, 28px); } 
+      .media-hero p { font-size: clamp(14px, 3vw, 16px); } 
+      body { -webkit-font-smoothing: antialiased; } /* Améliore le rendu texte mobile */
+    }
+
+    .media-tools { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; margin-top: 16px; }
+    .filters { display: flex; gap: 10px; flex-wrap: wrap; }
+    .chip { padding: 8px 14px; border-radius: 999px; background: #f5faf6; border: 1px solid #d9ecdf; color: #2f6b2f; font-weight: 600; font-size: 14px; cursor: pointer; transition: all 0.3s ease; }
+    .chip:hover { background: #e8f5ee; transform: scale(1.05); }
+    .chip.active { background: #2f6b2f; color: white; }
+    .search-bar { flex: 1; max-width: 300px; }
+    .search-bar input { width: 100%; padding: 8px 16px; border: 1px solid #d9ecdf; border-radius: 999px; font-size: 14px; outline: none; transition: border-color 0.3s ease; }
+    .search-bar input:focus { border-color: #2f6b2f; }
+    @media (max-width: 768px) { .media-tools { flex-direction: column; gap: 8px; } .search-bar { max-width: 100%; } }
+
+    .po-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.75); display: none; align-items: center; justify-content: center; z-index: 1300; padding: 16px; }
+    .po-overlay.open { display: flex; }
+    .po-content { position: relative; max-width: min(92vw, 1100px); max-height: 86vh; display: flex; align-items: center; justify-content: center; }
+    .po-img { max-width: 100%; max-height: 86vh; border-radius: 12px; box-shadow: 0 18px 36px rgba(0,0,0,0.3); }
+    .po-close { position: absolute; top: 8px; right: 8px; width: 40px; height: 40px; border-radius: 999px; border: 0; background: #fff; color: #2f6b2f; display: grid; place-items: center; box-shadow: 0 10px 22px rgba(0,0,0,0.22); cursor: pointer; transition: transform 0.3s ease; }
+    .po-close:hover { transform: scale(1.1); }
+
+    .media-section { margin-top: 32px; }
+    .media-section h2 { margin: 0 0 12px; font-weight: 800; font-size: clamp(20px, 4vw, 28px); color: var(--text); }
+    .media-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; }
+    @media (max-width: 768px) { .media-grid { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 8px; } }
+    .media-card { position: relative; background: #fff; border: 1px solid #ecf0ed; border-radius: 14px; box-shadow: var(--shadow); overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .media-card:hover { transform: translateY(-6px); box-shadow: 0 12px 24px rgba(0,0,0,0.15); }
+    .media-card img, .media-card video { display: block; width: 100%; height: auto; aspect-ratio: 16/9; object-fit: cover; background: #000; }
+    .media-caption { padding: 12px; color: var(--muted); font-size: 14px; text-align: center; }
+
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.75); display: none; align-items: center; justify-content: center; z-index: 1200; }
+    .modal-overlay.open { display: flex; }
+    .modal-content { position: relative; max-width: min(92vw, 1100px); background: #fff; border-radius: 12px; padding: 16px; }
+    .modal-close { position: absolute; top: 8px; right: 8px; width: 40px; height: 40px; border-radius: 999px; border: 0; background: #fff; color: #2f6b2f; font-size: 20px; cursor: pointer; transition: transform 0.3s ease; }
+    .modal-close:hover { transform: scale(1.1); }
+    .modal-body { display: flex; align-items: center; justify-content: center; }
+    @media (max-width: 768px) { .modal-content { padding: 8px; } .modal-body video, .po-img { max-height: 70vh; } }
+
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.is-visible { opacity: 1; transform: none; }
+
+    /* 3D Sphere Gallery Styles - Optimisé pour mobile */
+    main.photos-section { display: flex; width: 100%; height: 60vh; justify-content: center; align-items: center; overflow: hidden; touch-action: none; background-color: var(--bg); }
+    main.photos-section * { touch-action: none; }
+    .stage { perspective: calc(var(--radius) * 2); width: 100%; height: 100%; }
+    .sphere { transform: translateZ(calc(var(--radius) * -1)) rotateY(var(--sphere-rotation-y)) rotateX(var(--sphere-rotation-x)); transform-style: preserve-3d; width: 100%; height: 100%; }
+    .item { width: calc(var(--item-width) * var(--item-size-x)); height: calc(var(--item-height) * var(--item-size-y)); position: absolute; transform-origin: 50% 50%; top: -999px; bottom: -999px; left: -999px; right: -999px; margin: auto; backface-visibility: hidden; color: transparent; transform-style: preserve-3d; transition: transform 300ms; transform: rotateY(calc( var(--rot-y) * (var(--offset-x) + ((var(--item-size-x) - 1) / 2)) + var(--rot-y-delta, 0deg) )) rotateX(calc( calc(var(--rot-x) * (var(--offset-y) - ((var(--item-size-y) - 1) / 2))) + var(--rot-x-delta, 0deg) )) translateZ(var(--radius)); }
+    .item__image { position: absolute; display: block; inset: 10px; border-radius: 12px; background-color: var(--item-bg); overflow: hidden; backface-visibility: hidden; transition: transform 300ms; }
+    .item__image img { object-fit: cover; width: 100%; height: 100%; pointer-events: none; backface-visibility: hidden; draggable: false; loading: lazy; } /* Lazy loading */
+    .viewer { position: fixed; inset: 0; z-index: 9; pointer-events: none; display: flex; align-items: center; justify-content: center; padding: 100px; }
+    .viewer .frame { height: 100%; aspect-ratio: 1; border-radius: 32px; display: flex; }
+    .viewer .scrim { position: absolute; inset: 0; background-color: var(--bg-scrim); pointer-events: none; opacity: 0; transition: opacity 300ms; backdrop-filter: blur(3px); }
+    [data-enlarging=true] .scrim { opacity: 1; pointer-events: all; }
+    @media (max-aspect-ratio: 1/1) { .viewer .frame { height: auto; width: 100%; } }
+    @media (max-width: 768px) { 
+      main.photos-section { height: 50vh; padding: 8px; } /* Réduction hauteur mobile */
+      .viewer { padding: 50px; } 
+      .item__image { inset: 5px; border-radius: 8px; } 
+      .sphere { transition: transform 0.2s ease-out; } /* Transition plus courte */
+    }
+
+    @supports not (aspect-ratio: 1/1) {
+      .media-card img, .media-card video { height: 140px; }
+      @media (max-width: 680px) { .media-card img, .media-card video { height: 100px; } }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation principale -->
+    <!-- Navigation via navigation.html -->
+
+  <header class="media-hero media-wrap reveal">
+    <div class="inner">
+      <h1 class="reveal">Médiathèque</h1>
+      <p class="reveal">Parcourez nos photos et vidéos : événements, équipe et projets.</p>
+      <div class="media-tools">
+        <div class="filters" role="tablist" aria-label="Filtrer le contenu">
+          <button class="chip active" data-filter="all" role="tab" aria-selected="true">Tous</button>
+          <button class="chip" data-filter="photos" role="tab" aria-selected="false">Photos</button>
+          <button class="chip" data-filter="videos" role="tab" aria-selected="false">Vidéos</button>
+        </div>
+        <div class="search-bar">
+          <input type="text" id="media-search" placeholder="Rechercher par tags..." aria-label="Rechercher dans la médiathèque">
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="media-wrap photos-section" id="photos" aria-labelledby="photos-title">
+    <h2 id="photos-title" class="reveal">Photos (Galerie 3D Interactive)</h2>
+    <div class="stage">
+      <div class="sphere">
+        <!-- Items de la galerie 3D -->
+        <div class="item" data-src="images/a2spic1.jpg" data-item="-37,-4" data-item-size="2,2">
+          <div class="item__image">
+            <img src="images/a2spic1.jpg" loading="lazy" draggable="false" alt="Événement d'entreprise"/>
+          </div>
+        </div>
+        <div class="item" data-src="images/a2spic2.jpg" data-item="-35,-2" data-item-size="2,2">
+          <div class="item__image">
+            <img src="images/a2spic2.jpg" loading="lazy" draggable="false" alt="Événement d'entreprise"/>
+          </div>
+        </div>
+        <div class="item" data-src="images/a2spic3.jpg" data-item="-33,0" data-item-size="2,2">
+          <div class="item__image">
+            <img src="images/a2spic3.jpg" loading="lazy" draggable="false" alt="Produit en action"/>
+          </div>
+        </div>
+        <div class="item" data-src="images/a2spic4.jpg" data-item="-31,2" data-item-size="2,2">
+          <div class="item__image">
+            <img src="images/a2spic4.jpg" loading="lazy" draggable="false" alt="Produit en action"/>
+          </div>
+        </div>
+        <div class="item" data-src="images/a2spic5.jpg" data-item="-29,4" data-item-size="2,2">
+          <div class="item__image">
+            <img src="images/a2spic5.jpg" loading="lazy" draggable="false" alt="Produit en action"/>
+          </div>
+        </div>
+        <div class="item" data-src="images/a2spic6.jpg" data-item="-27,-4" data-item-size="2,2">
+          <div class="item__image">
+            <img src="images/a2spic6.jpg" loading="lazy" draggable="false" alt="Équipe au travail"/>
+          </div>
+        </div>
+        <div class="item" data-src="images/a2spic7.jpg" data-item="-25,-2" data-item-size="2,2">
+          <div class="item__image">
+            <img src="images/a2spic7.jpg" loading="lazy" draggable="false" alt="Événement"/>
+          </div>
+        </div>
+        <div class="item" data-src="images/a2spic8.jpg" data-item="-23,0" data-item-size="2,2">
+          <div class="item__image">
+            <img src="images/a2spic8.jpg" loading="lazy" draggable="false" alt="Équipe"/>
+          </div>
+        </div>
+        <div class="item" data-src="images/a2spic9.jpg" data-item="-21,2" data-item-size="2,2">
+          <div class="item__image">
+            <img src="images/a2spic9.jpg" loading="lazy" draggable="false" alt="Produit"/>
+          </div>
+        </div>
+        <div class="item" data-src="images/a2spic10.jpg" data-item="-19,4" data-item-size="2,2">
+          <div class="item__image">
+            <img src="images/a2spic10.jpg" loading="lazy" draggable="false" alt="Événement"/>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="viewer">
+      <div class="scrim"></div>
+      <div class="frame">
+        <div class="enlarged"></div>
+      </div>
+    </div>
+  </main>
+
+  <main class="media-wrap">
+    <section id="videos" class="media-section" aria-labelledby="videos-title">
+      <h2 id="videos-title" class="reveal">Vidéos</h2>
+      <div class="media-grid">
+        <figure class="media-card reveal" data-kind="videos" data-tags="formation leadership interne" data-caption="Formation leadership">
+          <video preload="metadata" controls playsinline poster="images/a2spic1.jpg" loading="lazy">
+            <source src="video1.mp4" type="video/mp4" />
+            Votre navigateur ne supporte pas la lecture de vidéos.
+          </video>
+          <figcaption class="media-caption">Formation leadership</figcaption>
+        </figure>
+        <figure class="media-card reveal" data-kind="videos" data-tags="presentation entreprise institutionnel" data-caption="Présentation d'entreprise">
+          <video preload="metadata" controls playsinline poster="images/a2spic2.jpg" loading="lazy">
+            <source src="video2.mp4" type="video/mp4" />
+            Votre navigateur ne supporte pas la lecture de vidéos.
+          </video>
+          <figcaption class="media-caption">Présentation d'entreprise</figcaption>
+        </figure>
+        <figure class="media-card reveal" data-kind="videos" data-tags="demonstration produit externe" data-caption="Démonstration produit">
+          <video preload="metadata" controls playsinline poster="images/a2spic3.jpg" loading="lazy">
+            <source src="video3.mp4" type="video/mp4" />
+            Votre navigateur ne supporte pas la lecture de vidéos.
+          </video>
+          <figcaption class="media-caption">Démonstration produit</figcaption>
+        </figure>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modale vidéo -->
+  <div class="modal-overlay tw-hidden" id="video-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Lecture vidéo">
+    <div class="modal-content">
+      <button class="modal-close" aria-label="Fermer">&times;</button>
+      <div class="modal-body">
+        <video id="modal-video" controls playsinline class="tw-w-full tw-max-h-[80vh] tw-rounded-lg"></video>
+      </div>
+    </div>
+  </div>
+
+  <!-- Overlay photo -->
+  <div class="po-overlay tw-hidden" id="photo-overlay" aria-hidden="true" role="dialog" aria-label="Visionnage photo">
+    <div class="po-content">
+      <button class="po-close" aria-label="Fermer">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+      <img class="po-img" alt="" loading="lazy"/>
+    </div>
+  </div>
+
+  <script>
+    // Toggle menu
+    function toggleMenu() {
+      const menu = document.getElementById('primary-nav');
+      const isOpen = !menu.classList.contains('tw-hidden');
+      const openIcon = document.querySelector('.menu-icon-open');
+      const closeIcon = document.querySelector('.menu-icon-close');
+      if (isOpen) {
+        menu.classList.add('tw-opacity-0', 'tw-translate-y-4');
+        setTimeout(() => {
+          menu.classList.add('tw-hidden');
+        }, 300);
+        openIcon.classList.remove('tw-hidden');
+        closeIcon.classList.add('tw-hidden');
+      } else {
+        menu.classList.remove('tw-hidden');
+        setTimeout(() => {
+          menu.classList.remove('tw-opacity-0', 'tw-translate-y-4');
+        }, 10);
+        openIcon.classList.add('tw-hidden');
+        closeIcon.classList.remove('tw-hidden');
+      }
+    }
+
+    // Médiathèque interactions optimisées
+    document.addEventListener('DOMContentLoaded', () => {
+      // Détection mobile pour désactiver animations lourdes
+      const isMobile = window.innerWidth <= 768 || 'ontouchstart' in window;
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // Fallback pour reveal (simplifié)
+      if (!isMobile || !prefersReduced) {
+        document.querySelectorAll('.reveal').forEach(el => el.classList.add('is-visible'));
+      }
+
+      // Filtrage
+      const chips = Array.from(document.querySelectorAll('.chip'));
+      const photosSection = document.getElementById('photos');
+      const videosSection = document.getElementById('videos');
+      const input = document.getElementById('media-search');
+      if (input) input.value = '';
+      function applyFilter() {
+        const active = (chips.find(c => c.classList.contains('active'))?.dataset.filter) || 'all';
+        const q = (input?.value || '').toLowerCase().trim();
+        photosSection.style.display = (active === 'all' || active === 'photos') ? '' : 'none';
+        videosSection.style.display = (active === 'all' || active === 'videos') ? '' : 'none';
+        const videoCards = Array.from(videosSection.querySelectorAll('.media-card'));
+        videoCards.forEach(card => {
+          const tags = (card.dataset.tags || '').toLowerCase();
+          const cap = (card.dataset.caption || '').toLowerCase();
+          const matchText = !q || tags.includes(q) || cap.includes(q);
+          card.style.display = matchText ? '' : 'none';
+        });
+      }
+      chips.forEach(ch => {
+        ch.addEventListener('click', () => {
+          chips.forEach(x => x.classList.toggle('active', x === ch));
+          applyFilter();
+        });
+        ch.addEventListener('keydown', e => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            ch.click();
+          }
+        });
+      });
+      if (input) input.addEventListener('input', applyFilter);
+      applyFilter();
+
+      // Modale vidéo optimisée
+      const modal = document.getElementById('video-modal');
+      const modalVideo = document.getElementById('modal-video');
+      function openVideo(src) {
+        if (!modal || !modalVideo) return;
+        modalVideo.src = src;
+        modal.classList.add('open', 'tw-flex');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        modalVideo.play().catch(() => {});
+      }
+      function closeVideo() {
+        if (!modal || !modalVideo) return;
+        modal.classList.remove('open', 'tw-flex');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        modalVideo.pause();
+        modalVideo.removeAttribute('src');
+        modalVideo.load();
+      }
+      modal?.querySelector('.modal-close')?.addEventListener('click', closeVideo);
+      modal?.addEventListener('click', e => { if (e.target === modal) closeVideo(); });
+      document.addEventListener('keydown', e => { if (e.key === 'Escape' && modal?.classList.contains('open')) closeVideo(); });
+
+      // Aperçu vidéo désactivé sur mobile pour perf
+      if (!isMobile) {
+        const videos = Array.from(document.querySelectorAll('.media-card video'));
+        const finePointer = window.matchMedia('(pointer: fine)').matches;
+        function videoSrc(v) {
+          const s = v.querySelector('source');
+          return (s && s.getAttribute('src')) || v.currentSrc || v.src || '';
+        }
+        if (videos.length) {
+          videos.forEach(v => {
+            v.addEventListener('click', () => {
+              const src = videoSrc(v);
+              if (src) {
+                try { v.pause(); v.currentTime = 0; } catch (_) {}
+                openVideo(src);
+              }
+            });
+            if (finePointer && !prefersReduced) {
+              v.addEventListener('mouseenter', () => {
+                try {
+                  v.muted = true;
+                  v.play().then(() => {
+                    clearTimeout(v._previewTimer);
+                    v._previewTimer = setTimeout(() => { try { v.pause(); v.currentTime = 0; } catch (_) {} }, 2000);
+                  }).catch(() => {});
+                } catch (_) {}
+              });
+              v.addEventListener('mouseleave', () => {
+                try { clearTimeout(v._previewTimer); v.pause(); v.currentTime = 0; } catch (_) {}
+              });
+            }
+          });
+        }
+      }
+
+      // GSAP désactivé sur mobile pour perf
+      if (!isMobile && !prefersReduced && window.gsap) {
+        gsap.registerPlugin(ScrollTrigger);
+        gsap.from('.media-hero h1', { y: 20, autoAlpha: 0, duration: 0.8, ease: 'power2.out' });
+        gsap.from('.media-hero p', { y: 15, autoAlpha: 0, duration: 0.7, ease: 'power2.out', delay: 0.1 });
+        gsap.from('.media-tools', { y: 15, autoAlpha: 0, duration: 0.7, ease: 'power2.out', delay: 0.2 });
+        gsap.utils.toArray('.media-card').forEach((el, i) => {
+          gsap.from(el, { y: 30, autoAlpha: 0, duration: 0.6, ease: 'power2.out', delay: i * 0.05, scrollTrigger: { trigger: el, start: 'top 85%' } });
+        });
+      }
+
+      // 3D Sphere Gallery JS optimisé
+      if (!isMobile) { // Désactiver sur mobile si trop lourd
+        const SphereApp = () => {
+          const MAX_POLAR_ROT_DEG = 3;
+          const PAN_SENSITIVTY = 18;
+          const TRANSITION_DUR_MS = 300;
+          const DOM = {
+            sphere: document.querySelector(".sphere"),
+            main: document.querySelector(".photos-section"),
+            items: document.querySelectorAll(".item__image"),
+            frame: document.querySelector(".frame"),
+            viewer: document.querySelector(".viewer"),
+            scrim: document.querySelector(".scrim"),
+          };
+          const state = {
+            rotation: { x: 0, y: 0 },
+            startRotation: { x: 0, y: 0 },
+            inertiaFrame: null,
+            cancelTap: false,
+          };
+          const clamp = (val, min, max) => Math.min(Math.max(val, min), max);
+          const applyTransform = () => {
+            DOM.sphere.style.transform = `translateZ(calc(var(--radius) * -1)) rotateX(${state.rotation.x}deg) rotateY(${state.rotation.y}deg)`;
+          };
+          const stopInertia = () => {
+            if (state.inertiaFrame) {
+              cancelAnimationFrame(state.inertiaFrame);
+              state.inertiaFrame = null;
+            }
+          };
+          const startInertia = (velocityX, velocityY) => {
+            let vx = velocityX * 100;
+            let vy = velocityY * 100;
+            const friction = 0.92;
+            const minVelocity = 0.1;
+            const maxFrames = 120;
+            let frameCount = 0;
+            const step = () => {
+              vx *= friction;
+              vy *= friction;
+              if (Math.abs(vx) < minVelocity && Math.abs(vy) < minVelocity) {
+                state.inertiaFrame = null;
+                return;
+              }
+              const proposedX = state.rotation.x - vy / 200;
+              state.rotation.x = clamp(proposedX, -MAX_POLAR_ROT_DEG, MAX_POLAR_ROT_DEG);
+              state.rotation.y += vx / 200;
+              applyTransform();
+              frameCount++;
+              if (frameCount > maxFrames) {
+                state.inertiaFrame = null;
+                return;
+              }
+              state.inertiaFrame = requestAnimationFrame(step);
+            };
+            stopInertia();
+            state.inertiaFrame = requestAnimationFrame(step);
+          };
+          const setupGestures = () => {
+            const hammer = new Hammer(DOM.main);
+            hammer.get("pan").set({ direction: Hammer.DIRECTION_ALL });
+            hammer.on("panstart", () => {
+              state.cancelTap = true;
+              stopInertia();
+              state.startRotation.x = state.rotation.x;
+              state.startRotation.y = state.rotation.y;
+            });
+            hammer.on("panmove", ({ deltaX, deltaY }) => {
+              const proposedX = state.startRotation.x - deltaY / PAN_SENSITIVTY;
+              state.rotation.y = state.startRotation.y + deltaX / PAN_SENSITIVTY;
+              state.rotation.x = clamp(proposedX, -MAX_POLAR_ROT_DEG, MAX_POLAR_ROT_DEG);
+              applyTransform();
+            });
+            hammer.on("panend", ({ velocityX, velocityY }) => {
+              setTimeout(() => (state.cancelTap = false), 100);
+              startInertia(velocityX, velocityY);
+            });
+          };
+          const getTransformRotation = (el) => {
+            const st = window.getComputedStyle(el, null);
+            const tr = st.getPropertyValue("transform");
+            if (tr === "none") return { x: 0, y: 0, z: 0 };
+            const values = tr.split('(')[1].split(')')[0].split(',');
+            const a = values[0];
+            const b = values[1];
+            const c = values[2];
+            const d = values[3];
+            const scale = Math.sqrt(a * a + b * b);
+            const sin = b / scale;
+            const angleY = Math.round(Math.atan2(b, a) * (180 / Math.PI));
+            const angleX = Math.round(Math.asin(-c / scale) * (180 / Math.PI));
+            return { x: angleX, y: angleY, z: 0 };
+          };
+          const getRotationXY = (el) => {
+            const rot = getTransformRotation(el);
+            return { x: rot.x, y: rot.y };
+          };
+          const handleClickScrim = () => {
+            DOM.viewer.setAttribute("data-enlarging", "false");
+            DOM.frame.innerHTML = "";
+          };
+          const handleClick = (e) => {
+            if (state.cancelTap) return;
+            const parentEl = e.currentTarget.parentNode;
+            const img = e.currentTarget.querySelector("img");
+            const clone = img.cloneNode(true);
+            const rect = img.getBoundingClientRect();
+            const viewerRect = DOM.viewer.getBoundingClientRect();
+            const rotation = getRotationXY(parentEl);
+            clone.style.position = "absolute";
+            clone.style.top = `${rect.top - viewerRect.top}px`;
+            clone.style.left = `${rect.left - viewerRect.left}px`;
+            clone.style.width = `${rect.width}px`;
+            clone.style.height = `${rect.height}px`;
+            clone.style.transform = `rotateY(${rotation.y}deg) rotateX(${rotation.x}deg)`;
+            clone.style.transition = `all ${TRANSITION_DUR_MS}ms`;
+            DOM.frame.appendChild(clone);
+            setTimeout(() => {
+              clone.style.top = "0";
+              clone.style.left = "0";
+              clone.style.width = "100%";
+              clone.style.height = "100%";
+              clone.style.transform = "rotateY(0deg) rotateX(0deg)";
+            }, 10);
+            DOM.viewer.setAttribute("data-enlarging", "true");
+          };
+          const setupTaps = () => {
+            DOM.items.forEach((el) => el.addEventListener("click", handleClick));
+            DOM.scrim.addEventListener("click", handleClickScrim);
+          };
+          const init = () => {
+            setupGestures();
+            setupTaps();
+          };
+          return { init };
+        };
+        SphereApp().init();
+      }
+    });
+  </script>
+</body>
+</html>
+
+

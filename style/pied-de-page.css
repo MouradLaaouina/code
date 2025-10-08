@@ -1,0 +1,7 @@
+/* Pied de page – styles spécifiques */
+footer[role="contentinfo"] .social-ring { transition: transform .15s ease; }
+footer[role="contentinfo"] .social-ring:hover { transform: translateY(-2px); }
+
+/* Ajustements d’accessibilité */
+footer[role="contentinfo"] a:focus { outline: 2px solid rgba(255,255,255,.7); outline-offset: 2px; }
+

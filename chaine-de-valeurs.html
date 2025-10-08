@@ -1,0 +1,149 @@
+﻿<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Alliance Synergie Santé propose des solutions de santé personnalisées, éthiques et innovantes pour le bien-être de tous.">
+  <meta name="keywords" content="santé, bien-être, diagnostics personnalisés, produits dermo-cosmétiques, éthique">
+  <title>Chaîne de valeurs &ndash; Alliance Synergie Santé</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="script/nav-loader.js" defer></script>
+  <script src="script/footer-loader.js" defer></script>
+  <style>
+    /* Styles personnalisés pour éléments non couverts par Tailwind */
+    .cv-flow::before {
+      @apply absolute left-3.5 top-0 bottom-0 w-0.5 bg-gradient-to-b from-green-100 to-green-700;
+    }
+    .cv-step::before {
+      @apply absolute left-2 top-2 w-4.5 h-4.5 rounded-full bg-green-700 shadow-[0_0_0_6px_#e8f5ee] transition-transform duration-300 ease-in-out;
+    }
+    .cv-step--visible::before {
+      @apply scale-125 bg-green-600;
+    }
+  </style>
+</head>
+<body class="font-inter bg-gray-50">
+  <!-- Navigation placeholder -->
+  <div id="nav-placeholder" class="min-h-[60px] bg-white"></div>
+
+  <!-- Main content -->
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-6 mt-20">
+    <!-- Hero section -->
+    <section class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-green-100/90 to-white/90 shadow-xl cv-reveal" role="region" aria-label="Chaîne de valeurs A2S">
+      <div class="px-6 py-6 sm:px-8 sm:py-8 lg:px-12 lg:py-12">
+        <h1 class="mb-2.5 text-2xl font-extrabold leading-tight tracking-tight bg-gradient-to-r from-green-700 via-green-600 to-green-500 bg-clip-text text-transparent sm:text-3xl lg:text-4xl">
+          L’alliance qui rend la santé accessible, personnalisée et responsable
+        </h1>
+        <p class="text-base text-green-600 sm:text-lg lg:text-lg leading-relaxed">
+          Alliance Synergie Santé n’est pas seulement un laboratoire ou un distributeur : 
+          c’est un écosystème de solutions humaines au service de la vitalité et du bien-être, 
+          repensant la façon d’accompagner chaque patient et professionnel.
+        </p>
+      </div>
+    </section>
+
+    <!-- Timeline section -->
+    <section class="mt-6 sm:mt-8 cv-reveal" aria-label="Valeurs et engagements">
+      <ol class="relative mt-3.5" role="list">
+        <!-- Step 1 -->
+        <li class="relative px-3 pb-4.5 pl-14 rounded-xl sm:pl-16">
+          <div class="grid grid-cols-1 gap-3 md:grid-cols-[300px_1fr] md:gap-6 items-center">
+            <figure class="w-[220px] h-[220px] mx-auto md:w-[300px] md:h-[300px]">
+              <img class="w-full h-full rounded-xl shadow-lg object-cover" src="images/Laboratoire.png" srcset="images/Laboratoire-low.png 320w, images/Laboratoire.png 640w" sizes="(max-width: 768px) 220px, 300px" alt="Laboratoire et diagnostic personnalisé" loading="lazy">
+            </figure>
+            <div class="text-center md:text-left">
+              <h3 class="text-lg font-extrabold text-green-900 sm:text-xl">Des parcours de soins créatifs</h3>
+              <p class="text-green-600">Diagnostics personnalisés en ligne ou en cabinet, solutions co-créées avec des praticiens passionnés et des patients engagés.</p>
+            </div>
+          </div>
+        </li>
+        <!-- Step 2 -->
+        <li class="relative px-3 pb-4.5 pl-14 rounded-xl sm:pl-16 md:[&_.cv-media]:order-2 md:[&_.cv-text]:order-1">
+          <div class="grid grid-cols-1 gap-3 md:grid-cols-[300px_1fr] md:gap-6 items-center">
+            <figure class="w-[220px] h-[220px] mx-auto md:w-[300px] md:h-[300px] cv-media">
+              <img class="w-full h-full rounded-xl shadow-lg object-cover" src="images/dermo.png" srcset="images/dermo-low.png 320w, images/dermo.png 640w" sizes="(max-width: 768px) 220px, 300px" alt="Gamme de produits dermo-cosmétiques" loading="lazy">
+            </figure>
+            <div class="text-center md:text-left cv-text">
+              <h3 class="text-lg font-extrabold text-green-900 sm:text-xl">Des gammes &ldquo;vivantes&rdquo;</h3>
+              <p class="text-green-600">Chaque produit incarne une histoire vraie, une innovation utile, un enjeu de santé ou de beauté qui concerne toute la famille, à tous âges.</p>
+            </div>
+          </div>
+        </li>
+        <!-- Step 3 -->
+        <li class="relative px-3 pb-4.5 pl-14 rounded-xl sm:pl-16">
+          <div class="grid grid-cols-1 gap-3 md:grid-cols-[300px_1fr] md:gap-6 items-center">
+            <figure class="w-[220px] h-[220px] mx-auto md:w-[300px] md:h-[300px]">
+              <img class="w-full h-full rounded-xl shadow-lg object-cover" src="images/prod.png" srcset="images/prod-low.png 320w, images/prod.png 640w" sizes="(max-width: 768px) 220px, 300px" alt="Engagement responsable et production maîtrisée" loading="lazy">
+            </figure>
+            <div class="text-center md:text-left">
+              <h3 class="text-lg font-extrabold text-green-900 sm:text-xl">Un engagement fort</h3>
+              <p class="text-green-600">Chaque formule, chaque service est pensé dans le respect de la planète, de l’inclusion et de la transparence — labels bio, choix des partenaires, et intégration de l’avis des utilisateurs.</p>
+            </div>
+          </div>
+        </li>
+        <!-- Step 4 -->
+        <li class="relative px-3 pb-4.5 pl-14 rounded-xl sm:pl-16 md:[&_.cv-media]:order-2 md:[&_.cv-text]:order-1">
+          <div class="grid grid-cols-1 gap-3 md:grid-cols-[300px_1fr] md:gap-6 items-center">
+            <figure class="w-[220px] h-[220px] mx-auto md:w-[300px] md:h-[300px] cv-media">
+              <img class="w-full h-full rounded-xl shadow-lg object-cover" src="images/Media.jpg" srcset="images/Media-low.jpg 320w, images/Media.jpg 640w" sizes="(max-width: 768px) 220px, 300px" alt="Pont entre science et sens" loading="lazy">
+            </figure>
+            <div class="text-center md:text-left cv-text">
+              <h3 class="text-lg font-extrabold text-green-900 sm:text-xl">Un pont entre science et sens</h3>
+              <p class="text-green-600">Nos équipes aiment mêler rigueur clinique et approche holistique, former, sensibiliser et innover avec exigence — jamais sans chaleur.</p>
+            </div>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- Note section -->
+    <section class="mt-4 sm:mt-6 bg-white border border-gray-200 rounded-2xl p-4 sm:p-5 shadow-lg cv-reveal" aria-label="Pourquoi nous choisir ?">
+      <h2 class="text-lg font-extrabold text-green-900 sm:text-2xl">Pourquoi choisir Alliance Synergie Santé?</h2>
+      <p class="text-green-700">Parce que se soigner, ici, c’est collaborer à une aventure collective : celle d’une santé sur-mesure, éthique, évolutive, où l’humain et l’expertise vont toujours de pair.</p>
+    </section>
+  </main>
+
+  <!-- Scroll reveal animation with GSAP -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (!document.querySelector('script[src$="nav-loader.js"]')) {
+        const s = document.createElement('script');
+        s.src = 'script/nav-loader.js';
+        s.defer = true;
+        document.head.appendChild(s);
+      }
+      gsap.registerPlugin(ScrollTrigger);
+      gsap.utils.toArray('.cv-reveal').forEach(el => {
+        gsap.fromTo(
+          el,
+          { opacity: 0, y: 12 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.5,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 85%',
+              toggleActions: 'play none none none',
+            },
+          }
+        );
+      });
+      gsap.utils.toArray('.relative').forEach(el => {
+        gsap.to(el, {
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 85%',
+            onEnter: () => el.classList.add('cv-step--visible'),
+          },
+        });
+      });
+    });
+  </script>
+</body>
+</html>
