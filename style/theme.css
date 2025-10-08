@@ -58,10 +58,10 @@ body { background: var(--bg); color: var(--text); }
 nav.nav {
   padding-top: calc(0.25rem + var(--safe-top, 0px));
   padding-bottom: 0.25rem;
-  /* Fond argent (silver) + brillance */
+  /* Fond doré brillant + brillance */
   background-image:
-    linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.35) 45%, rgba(255,255,255,0) 70%),
-    linear-gradient(135deg, #8F8F90 0%, #BDBDBF 25%, #DADADA 45%, #EFEFEF 60%, #D0D0D2 78%, #A7A7A9 100%);
+    linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.45) 45%, rgba(255,255,255,0) 70%),
+    linear-gradient(135deg, #B8860B 0%, #D4AF37 22%, #FFD700 45%, #FFF1A8 60%, #FFC94D 78%, #B98900 100%);
   background-size: 200% 100%, 100% 100%;
   background-position: -150% 0, 0 0;
   background-repeat: no-repeat;

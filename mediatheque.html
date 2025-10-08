@@ -89,7 +89,8 @@
     .modal-body { display: flex; align-items: center; justify-content: center; }
     @media (max-width: 768px) { .modal-content { padding: 8px; } .modal-body video, .po-img { max-height: 70vh; } }
 
-    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    /* Désactivation des reveals: affichage immédiat */
+    .reveal { opacity: 1; transform: none; }
     .reveal.is-visible { opacity: 1; transform: none; }
 
     /* 3D Sphere Gallery Styles - Optimisé pour mobile */
@@ -380,16 +381,7 @@
         }
       }
 
-      // GSAP désactivé sur mobile pour perf
-      if (!isMobile && !prefersReduced && window.gsap) {
-        gsap.registerPlugin(ScrollTrigger);
-        gsap.from('.media-hero h1', { y: 20, autoAlpha: 0, duration: 0.8, ease: 'power2.out' });
-        gsap.from('.media-hero p', { y: 15, autoAlpha: 0, duration: 0.7, ease: 'power2.out', delay: 0.1 });
-        gsap.from('.media-tools', { y: 15, autoAlpha: 0, duration: 0.7, ease: 'power2.out', delay: 0.2 });
-        gsap.utils.toArray('.media-card').forEach((el, i) => {
-          gsap.from(el, { y: 30, autoAlpha: 0, duration: 0.6, ease: 'power2.out', delay: i * 0.05, scrollTrigger: { trigger: el, start: 'top 85%' } });
-        });
-      }
+      // Animations au scroll désactivées (contenu visible sans reveal)
 
       // 3D Sphere Gallery JS optimisé
       if (!isMobile) { // Désactiver sur mobile si trop lourd

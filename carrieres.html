@@ -177,15 +177,9 @@
     document.addEventListener('DOMContentLoaded', function(){
       const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (reduce || !window.gsap) return;
-      gsap.registerPlugin(ScrollTrigger);
       gsap.from('.car-bubble, .car-illu', { scale: 0.8, autoAlpha: 0, duration: 0.8, ease: 'power2.out', delay: 0.1 });
       gsap.from('.car-title', { y: 12, autoAlpha: 0, duration: 0.6, ease: 'power2.out' });
-      gsap.utils.toArray('.car-card').forEach((el,i)=>{
-        gsap.from(el, { y: 24, autoAlpha: 0, duration: 0.5, ease: 'power2.out', delay: i*0.08, scrollTrigger:{trigger:el, start:'top 88%'} });
-      });
-      gsap.utils.toArray('.car-step').forEach((el,i)=>{
-        gsap.from(el, { y: 26, autoAlpha: 0, duration: 0.55, ease: 'power2.out', delay: i*0.1, scrollTrigger:{trigger:el, start:'top 90%'} });
-      });
+      // Animations au scroll désactivées: pas d'apparition progressive des éléments
     });
   </script>
 </body>

@@ -258,11 +258,10 @@ img, svg, video { max-width: 100%; height: auto; display: block; }
   font-size: 14px;
 }
 
-/* Reveal */
+/* Reveal (désactivé: afficher tout immédiatement) */
 .reveal {
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  opacity: 1;
+  transform: none;
 }
 
 .reveal.is-visible {
@@ -319,6 +318,19 @@ footer {
 footer a {
   color: inherit;
 }
+
+/* Hero logo light/dark swap */
+.hero-logo--dark { display: none; }
+.dark .hero-logo--light { display: none; }
+.dark .hero-logo--dark { display: block; }
+
+/* Handwritten tagline style */
+.handwritten {
+  font-family: "Caveat", "Patrick Hand", "Indie Flower", cursive;
+  font-weight: 700;
+}
+
+
 
 /* Responsive */
 @media (max-width: 768px) {

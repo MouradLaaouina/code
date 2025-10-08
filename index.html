@@ -32,6 +32,7 @@
   
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap" rel="stylesheet">
   
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -57,6 +58,80 @@
   
   <!-- CSS Critical inline -->
   <style>
+    /* Banner: fond gradient sombre et calque d'animation */
+    .dark #accueil {
+      background: linear-gradient(180deg, #0b0f11 0%, #050607 60%, #000 100%);
+    }
+    /* Rehaut de couleur (brand) pour éviter un rendu trop neutre */
+    #accueil::before {
+      content: "";
+      position: absolute; inset: 0; pointer-events: none;
+      background:
+        radial-gradient(60% 50% at 18% 18%, rgba(74,157,74,0.28) 0%, rgba(74,157,74,0) 60%),
+        radial-gradient(80% 60% at 82% 85%, rgba(18,120,128,0.22) 0%, rgba(18,120,128,0) 60%);
+    }
+    .dark #accueil::before {
+      background:
+        radial-gradient(60% 50% at 18% 18%, rgba(74,157,74,0.35) 0%, rgba(74,157,74,0) 60%),
+        radial-gradient(80% 60% at 82% 85%, rgba(18,120,128,0.28) 0%, rgba(18,120,128,0) 60%);
+    }
+    #banner-ambient {
+      position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0;
+    }
+    #banner-ambient .banner-item {
+      position: absolute; will-change: transform; opacity: 0.95;
+      filter: drop-shadow(0 12px 24px rgba(0,0,0,0.35));
+      user-select: none; -webkit-user-drag: none;
+    }
+    /* Bubbles réalistes */
+    #banner-ambient .bubble{
+      border-radius: 9999px;
+      background:
+        radial-gradient(120% 120% at 30% 25%, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.05) 40%, rgba(255,255,255,0) 60%),
+        radial-gradient(140% 140% at 70% 80%, rgba(64,224,208,0.18) 0%, rgba(64,224,208,0) 55%),
+        radial-gradient(140% 140% at 25% 75%, rgba(173,216,230,0.15) 0%, rgba(173,216,230,0) 55%),
+        radial-gradient(140% 140% at 80% 20%, rgba(144,238,144,0.14) 0%, rgba(144,238,144,0) 55%),
+        rgba(255,255,255,0.06);
+      box-shadow:
+        inset 0 1px 4px rgba(255,255,255,0.35),
+        inset 0 -10px 24px rgba(0,0,0,0.25),
+        0 8px 24px rgba(0,0,0,0.28);
+      display: grid; place-items: center; overflow: hidden;
+      backdrop-filter: saturate(110%) blur(0.5px);
+    }
+    #banner-ambient .bubble::before{
+      /* reflet spéculaire */
+      content: ""; position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(80% 60% at 25% 20%, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0) 45%);
+      transform: translateY(-8%) translateX(-4%);
+    }
+    #banner-ambient .bubble::after{
+      /* anneau fin, donne du volume */
+      content: ""; position: absolute; inset: 0; border-radius: 9999px;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.35), inset 0 0 40px rgba(255,255,255,0.06);
+      pointer-events: none;
+    }
+    #banner-ambient .bubble-img{
+      width: 70%; height: 70%; object-fit: contain;
+      filter: drop-shadow(0 2px 6px rgba(0,0,0,0.25));
+      opacity: 0.98;
+    }
+    /* Calque coloré par dessus les éléments flottants pour rehausser le visuel */
+    #accueil::after {
+      content: "";
+      position: absolute; inset: 0; pointer-events: none; z-index: 1;
+      background:
+        radial-gradient(55% 50% at 25% 80%, rgba(74,157,74,0.22) 0%, rgba(74,157,74,0) 60%),
+        radial-gradient(60% 55% at 78% 25%, rgba(0,188,212,0.18) 0%, rgba(0,188,212,0) 60%);
+      mix-blend-mode: screen;
+    }
+    .dark #accueil::after {
+      background:
+        radial-gradient(55% 50% at 25% 80%, rgba(74,157,74,0.28) 0%, rgba(74,157,74,0) 60%),
+        radial-gradient(60% 55% at 78% 25%, rgba(0,188,212,0.24) 0%, rgba(0,188,212,0) 60%);
+    }
+    /* Assure que le contenu reste au-dessus des calques */
+    #accueil .hero-content { position: relative; z-index: 2; }
     :root {
       --bg: #f8faf9;
       --text: #1a3a1d;
@@ -111,6 +186,15 @@
       animation: marquee-scroll 30s linear infinite;
       gap: 3rem;
     }
+    /* Partenaires: logos taille uniforme */
+    .partners-track img {
+      height: 48px; /* ~ h-12 */
+      width: auto;
+      object-fit: contain;
+      filter: grayscale(100%);
+      transition: filter 0.3s ease, transform 0.25s ease;
+    }
+    .partners-track img:hover { filter: grayscale(0%); transform: scale(1.05); }
     
     @keyframes marquee-scroll {
       0% {
@@ -235,7 +319,6 @@
       filter: brightness(0.9);
     }
     
-    /* Lightbox block removed (replaced by unified styles below) */
     
     /* Navigation styles */
     nav {
@@ -422,22 +505,17 @@
 
 <body>
   
-  <div id="nav-placeholder" class="min-h-[60px] bg-white"></div>
+  <div id="nav-placeholder" class="min-h-[60px]" style="background: linear-gradient(135deg, #B8860B 0%, #D4AF37 22%, #FFD700 45%, #FFF1A8 60%, #FFC94D 78%, #B98900 100%);"></div>
 
   <!-- Hero Section -->
   <section id="accueil" class="relative w-full overflow-hidden h-[60vh] md:h-[70vh] lg:h-[80vh]" role="banner">
-    <img src="images/banner.png" 
-         alt="Bannière Alliance Synergie Santé - Solutions dermo-cosmétiques innovantes" 
-         class="absolute inset-0 w-full h-full object-cover">
-    <div class="absolute inset-0 bg-gradient-to-b from-black/40 to-black/60"></div>
-    
+    <!-- Ambient banner animé (généré en JS) -->
+    <div id="banner-ambient" aria-hidden="true"></div>
+
     <div class="relative h-full flex items-center justify-center text-center px-4">
       <div class="hero-content max-w-4xl flex flex-col items-center">
-        <img src="images/logoa2s.svg" alt="Logo Alliance Synergie Santé" class="w-28 md:w-36 lg:w-44 mb-6 drop-shadow-xl" loading="eager" width="176" height="176">
-        <h1 class="text-4xl md:text-6xl lg:text-7xl font-display font-bold gold-text mb-6">
-          Alliance Synergie Santé
-        </h1>
-        <p class="text-xl md:text-2xl text-white/90 mb-8">
+        <img src="images/A2S Logo 1.png" alt="Alliance Synergie Sante" class="w-40 md:w-56 lg:w-64 mb-6 drop-shadow-xl" loading="eager" width="256" height="256">
+        <p class="text-xl md:text-2xl mb-8 handwritten font-bold" style="color: var(--text)">
           Solutions dermo-cosmétiques innovantes et durables 
           pour les professionnels de la santé et de la beauté au Maroc.  
         </p>
@@ -518,51 +596,58 @@
         <div class="partners-track">
           <!-- Premier set -->
           <div class="flex items-center justify-center min-w-[200px] gap-3">
-            <img src="images/dcap.svg" alt="DCAP" class="h-10 w-auto object-contain" loading="lazy">
-            <span class="text-2xl font-bold text-gray-700">DCAP</span>
+            <img src="images/11.png" alt="DCAP" class="h-10 w-auto object-contain" loading="lazy">
+           
           </div>
           <div class="flex items-center justify-center min-w-[200px] gap-3">
-            <img src="images/dwhite.svg" alt="D-White" class="h-10 w-auto object-contain" loading="lazy">
-            <span class="text-2xl font-bold text-gray-700">D-White</span>
+            <img src="images/1.png" alt="D-White" class="h-10 w-auto object-contain" loading="lazy">
+            
           </div>
           <div class="flex items-center justify-center min-w-[200px] gap-3">
-            <img src="images/sensilis.png" alt="Sensilis" class="h-10 w-auto object-contain" loading="lazy">
-            <span class="text-2xl font-bold text-gray-700">Sensilis</span>
+            <img src="images/10.png" alt="Sensilis" class="h-10 w-auto object-contain" loading="lazy">
+           
           </div>
-          <div class="flex items-center justify-center min-w-[220px] gap-3">
-            <img src="images/cumlaude lab.png" alt="Cumlaude Lab" class="h-10 w-auto object-contain" loading="lazy">
-            <span class="text-2xl font-bold text-gray-700">Cumlaude Lab</span>
-          </div>
-          <div class="flex items-center justify-center min-w-[200px] gap-3">             <img src="images/castera.png" alt="Castéra" class="h-10 w-auto object-contain" loading="lazy">             <span class="text-2xl font-bold text-gray-700">Castéra</span>           </div>
-          <div class="flex items-center justify-center min-w-[220px] gap-3">
-            <img src="images/buccotherm.svg" alt="Buccotherm" class="h-10 w-auto object-contain" loading="lazy">
-            <span class="text-2xl font-bold text-gray-700">Buccotherm</span>
-          </div>
-          <div class="flex items-center justify-center min-w-[200px] gap-3">             <img src="images/babe (2).png" alt="Babé" class="h-10 w-auto object-contain" loading="lazy">             <span class="text-2xl font-bold text-gray-700">Babé</span>           </div>
           <div class="flex items-center justify-center min-w-[200px] gap-3">
-            <img src="images/florame.png" alt="Florame" class="h-10 w-auto object-contain" loading="lazy">
-            <span class="text-2xl font-bold text-gray-700">Florame</span>
+            <img src="images/4.png" alt="Cumlaude Lab" class="h-10 w-auto object-contain" loading="lazy">
+            
+          </div>
+          <div class="flex items-center justify-center min-w-[200px] gap-3">             
+            <img src="images/5.png" alt="Castéra" class="h-10 w-auto object-contain" loading="lazy">             
+                      </div>
+          <div class="flex items-center justify-center min-w-[200px] gap-3">
+            <img src="images/2.png" alt="Buccotherm" class="h-10 w-auto object-contain" loading="lazy">
+            
+          </div>
+          <div class="flex items-center justify-center min-w-[200px] gap-3">             
+            <img src="images/9.png" alt="Babé" class="h-10 w-auto object-contain" loading="lazy">             
+                      </div>
+          <div class="flex items-center justify-center min-w-[200px] gap-3">
+            <img src="images/6.png" alt="Florame" class="h-10 w-auto object-contain" loading="lazy">
+            
           </div>
           
           <!-- Duplication pour boucle infinie -->
           <div class="flex items-center justify-center min-w-[200px] gap-3">
-            <img src="images/dcap.svg" alt="DCAP" class="h-10 w-auto object-contain" loading="lazy">
-            <span class="text-2xl font-bold text-gray-700">DCAP</span>
+            <img src="images/11.png" alt="DCAP" class="h-10 w-auto object-contain" loading="lazy">
+           
           </div>
           <div class="flex items-center justify-center min-w-[200px] gap-3">
-            <img src="images/dwhite.svg" alt="D-White" class="h-10 w-auto object-contain" loading="lazy">
-            <span class="text-2xl font-bold text-gray-700">D-White</span>
+            <img src="images/1.png" alt="D-White" class="h-10 w-auto object-contain" loading="lazy">
+           
           </div>
           <div class="flex items-center justify-center min-w-[200px] gap-3">
-            <img src="images/sensilis.png" alt="Sensilis" class="h-10 w-auto object-contain" loading="lazy">
-            <span class="text-2xl font-bold text-gray-700">Sensilis</span>
+            <img src="images/10.png" alt="Sensilis" class="h-10 w-auto object-contain" loading="lazy">
+            
           </div>
-          <div class="flex items-center justify-center min-w-[220px] gap-3">
-            <img src="images/cumlaude lab.png" alt="Cumlaude Lab" class="h-10 w-auto object-contain" loading="lazy">
-            <span class="text-2xl font-bold text-gray-700">Cumlaude Lab</span>
+          <div class="flex items-center justify-center min-w-[200px] gap-3">
+            <img src="images/4.png" alt="Cumlaude Lab" class="h-10 w-auto object-contain" loading="lazy">
+            
           </div>
-          <div class="flex items-center justify-center min-w-[200px] gap-3">             <img src="images/castera.png" alt="Castéra" class="h-10 w-auto object-contain" loading="lazy">             <span class="text-2xl font-bold text-gray-700">Castéra</span>           </div>
-          <div class="flex items-center justify-center min-w-[200px] gap-3">             <img src="images/babe (2).png" alt="Babé" class="h-10 w-auto object-contain" loading="lazy">             <span class="text-2xl font-bold text-gray-700">Babé</span>           </div>
+          <div class="flex items-center justify-center min-w-[200px] gap-3">
+            <img src="images/5.png" alt="Castéra" class="h-10 w-auto object-contain" loading="lazy"></div>
+          
+            <div class="flex items-center justify-center min-w-[200px] gap-3">
+            <img src="images/9.png" alt="Babé" class="h-10 w-auto object-contain" loading="lazy"></div>
         </div>
       </div>
     </section>
@@ -600,68 +685,6 @@
   <!-- Footer placeholder (loaded by footer-loader.js) -->
   <div id="footer-placeholder"></div>
 
-  <!-- Footer (moved to pied-de-page.html) -->
-  <!--
-  <footer id="contact" class="bg-gradient-to-br from-green-800 to-green-900 text-white py-16" role="contentinfo">
-    <div class="max-w-7xl mx-auto px-4">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-        
-        <div>
-          <h3 class="text-2xl font-display font-bold mb-4">Alliance Synergie Santé</h3>
-          <p class="text-green-100 leading-relaxed">
-            A2S, basé à Casablanca, propose des solutions dermo-cosmétiques innovantes et durables 
-            pour les professionnels de la santé et de la beauté au Maroc.
-          </p>
-        </div>
-        
-        <div>
-          <h3 class="text-2xl font-display font-bold mb-4">Contact</h3>
-          <address class="not-italic text-green-100 space-y-3">
-            <p>145 avenue Hassan II, 1er ét., appt. 3</p>
-            <p>Parc de la Ligue arabe</p>
-            <p>Casablanca, Maroc</p>
-            <p class="mt-4">
-              <a href="tel:+212522123456" class="hover:text-white transition-colors">
-                📞 +212 522 123 456
-              </a>
-            </p>
-            <p>
-              <a href="mailto:contact@a2s.ma" class="hover:text-white transition-colors">
-                ✉️ contact@a2s.ma
-              </a>
-            </p>
-          </address>
-        </div>
-        
-        <div>
-          <h3 class="text-2xl font-display font-bold mb-4">Suivez-nous</h3>
-          <div class="flex gap-4 mb-6">
-            <a href="https://www.facebook.com/alliancesynergiesanteofficiel" 
-               aria-label="Facebook" 
-               class="bg-white/10 p-3 rounded-full hover:bg-white/20 transition-colors">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/>
-              </svg>
-            </a>
-            <a href="https://www.linkedin.com/company/a2smaroc" 
-               aria-label="LinkedIn" 
-               class="bg-white/10 p-3 rounded-full hover:bg-white/20 transition-colors">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z"/>
-              </svg>
-            </a>
-          </div>
-          
-          </div>
-        
-      </div>
-      
-      <div class="border-t border-white/20 mt-12 pt-8 text-center text-green-100">
-        <p>&copy; 2025 Alliance Synergie Santé (A2S). Tous droits réservés.</p>
-      </div>
-    </div>
-  </footer> -->
-
   <!-- Lightbox -->
   <div id="lightbox-overlay" role="dialog" aria-modal="true" aria-label="Visionneuse d'image">
     <div id="lightbox-content">
@@ -678,72 +701,206 @@
   <script>
     // Wait for GSAP to load
     window.addEventListener('load', () => {
-      
-      // GSAP ScrollTrigger Animations
-      if (typeof gsap !== 'undefined') {
-        gsap.registerPlugin(ScrollTrigger);
-        
-        // Animate sections on scroll
-        gsap.utils.toArray('section').forEach(section => {
-          gsap.from(section, {
-            y: 60,
-            opacity: 0,
-            duration: 1,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: section,
-              start: 'top 80%',
-              toggleActions: 'play none none reverse'
-            }
-          });
-        });
-        
-        // Animate gallery items
-        gsap.utils.toArray('.gallery-item').forEach((item, i) => {
-          gsap.from(item, {
-            y: 50,
-            opacity: 0,
-            duration: 0.8,
-            delay: i * 0.1,
-            ease: 'power2.out',
-            scrollTrigger: {
-              trigger: item,
-              start: 'top 85%'
-            }
-          });
-        });
-      }
-      
-      // KPI Counter Animation
-      const animateCounter = (element) => {
-        const target = parseInt(element.getAttribute('data-target'));
-        let current = 0;
-        const increment = target / 60;
-        const duration = 2000;
-        const stepTime = duration / 60;
-        
-        const timer = setInterval(() => {
-          current += increment;
-          if (current >= target) {
-            element.textContent = target.toLocaleString() + '+';
-            clearInterval(timer);
-          } else {
-            element.textContent = Math.floor(current).toLocaleString();
+      // ==========================
+      // Banner animé (GSAP v3.12+)
+      // ==========================
+      (function initAmbientBanner(){
+        if (typeof gsap === 'undefined') return;
+        const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+        const section = document.getElementById('accueil');
+        const layer = document.getElementById('banner-ambient');
+        if (!section || !layer) return;
+
+        const W = () => section.clientWidth || window.innerWidth;
+        const H = () => section.clientHeight || Math.min(window.innerHeight * 0.8, 800);
+
+        // Liste d'images locales (PNG) – gammes/visuels existants
+        const sources = [
+          'images/1.png','images/2.png','images/3.png','images/4.png','images/5.png','images/6.png',
+          'images/7.png','images/8.png','images/9.png','images/10.png', 'images/11.png'];
+
+        const cfg = {
+          count: (W() < 768 ? 10 : 22),
+          sizeMin: (W() < 768 ? 38 : 60),
+          sizeMax: (W() < 768 ? 82 : 120),
+          // vitesses de déplacement (px/sec)
+          velMin: (W() < 768 ? 12 : 18),
+          velMax: (W() < 768 ? 26 : 36),
+          // oscillations (vent/derives)
+          freqMin: 0.3,
+          freqMax: 0.8,
+          ampMin: 10,
+          ampMax: (W() < 768 ? 28 : 40),
+          rotMin: 1,
+          rotMax: 6
+        };
+
+        if (prefersReduced) {
+          // Mouvement réduit: on affiche peu d'éléments, sans animation continue
+          cfg.count = W() < 768 ? 4 : 8;
+        }
+
+        const rnd = (min, max) => Math.random() * (max - min) + min;
+        const rndi = (min, max) => Math.floor(rnd(min, max + 1));
+        const pick = (arr) => arr[rndi(0, arr.length - 1)];
+
+        const sprites = [];
+        const wind = { value: 0 };
+        let paused = false;
+        const parallax = { x: 0, y: 0, tx: 0, ty: 0 };
+
+        function createSprite() {
+          // Conteneur bulle (effet verre réaliste) + image de gamme centrée
+          const wrap = document.createElement('div');
+          wrap.className = 'banner-item bubble';
+          const img = document.createElement('img');
+          img.className = 'bubble-img';
+          img.src = pick(sources);
+          img.alt = '';
+          img.decoding = 'async';
+          img.loading = 'lazy';
+          wrap.appendChild(img);
+          const size = rndi(cfg.sizeMin, cfg.sizeMax);
+          wrap.style.width = size + 'px';
+          wrap.style.height = size + 'px';
+          // base absolue
+          wrap.style.left = '0px';
+          wrap.style.top = '0px';
+          layer.appendChild(wrap);
+
+          const speed = rnd(cfg.velMin, cfg.velMax);
+          const angle = rnd(0, Math.PI * 2);
+          const vx = Math.cos(angle) * speed;
+          const vy = Math.sin(angle) * speed;
+
+          const meta = {
+            el: wrap,
+            size,
+            x: rnd(0, Math.max(0, W() - size)),
+            y: rnd(0, Math.max(0, H() - size)),
+            vx, vy,
+            phase: rnd(0, Math.PI * 2),
+            freq: rnd(cfg.freqMin, cfg.freqMax),
+            amp: rnd(cfg.ampMin, cfg.ampMax),
+            rotA: rnd(cfg.rotMin, cfg.rotMax),
+            vtween: null
+          };
+
+          if (prefersReduced) {
+            // Position figée en mode réduit
+            gsap.set(wrap, { x: meta.x, y: meta.y });
           }
-        }, stepTime);
-      };
-      
-      // Intersection Observer for counters
-      const counters = document.querySelectorAll('.kpi-value');
-      const counterObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting && entry.target.textContent === '0') {
-            animateCounter(entry.target);
+          sprites.push(meta);
+        }
+
+        function build() {
+          layer.innerHTML = '';
+          sprites.length = 0;
+          for (let i = 0; i < cfg.count; i++) createSprite();
+        }
+
+        function updateWind() {
+          // Vent doux: alterne direction/force toutes les 6–12s
+          gsap.to(wind, {
+            value: rnd(-40, 40), duration: rnd(6, 12), ease: 'sine.inOut',
+            onComplete: updateWind
+          });
+        }
+
+        function attachParallax() {
+          if (isTouch) return; // pas de suivi souris sur tactile
+          section.addEventListener('mousemove', (e) => {
+            const rect = section.getBoundingClientRect();
+            const cx = rect.left + rect.width / 2;
+            const cy = rect.top + rect.height / 2;
+            const dx = (e.clientX - cx) / rect.width;  // ~[-0.5..0.5]
+            const dy = (e.clientY - cy) / rect.height; // ~[-0.5..0.5]
+            parallax.tx = dx * 30; // intensité légère
+            parallax.ty = dy * 10;
+          });
+          // Adoucissement du parallax
+          gsap.ticker.add(() => {
+            parallax.x += (parallax.tx - parallax.x) * 0.06;
+            parallax.y += (parallax.ty - parallax.y) * 0.06;
+          });
+        }
+
+        let lastT = gsap.ticker.time || (performance.now() / 1000);
+        function tick() {
+          if (paused || prefersReduced) return;
+          const now = gsap.ticker.time || (performance.now() / 1000);
+          const dt = Math.max(0.001, now - lastT);
+          lastT = now;
+          for (const s of sprites) {
+            // mise à jour position (px/sec)
+            const vxEff = s.vx + wind.value * 0.2;
+            s.x += vxEff * dt;
+            s.y += s.vy * dt;
+
+            // rebond sur les bords pour rester dans la bannière
+            const maxX = Math.max(0, W() - s.size);
+            const maxY = Math.max(0, H() - s.size);
+            if (s.x < 0) { s.x = 0; s.vx = Math.abs(s.vx); }
+            if (s.x > maxX) { s.x = maxX; s.vx = -Math.abs(s.vx); }
+            if (s.y < 0) { s.y = 0; s.vy = Math.abs(s.vy); }
+            if (s.y > maxY) { s.y = maxY; s.vy = -Math.abs(s.vy); }
+
+            // houle douce + parallax
+            const oscX = Math.sin(now * s.freq + s.phase) * s.amp;
+            const oscY = Math.cos(now * s.freq * 0.8 + s.phase) * (s.amp * 0.35);
+            const rot = Math.sin(now * s.freq * 0.7 + s.phase) * s.rotA;
+
+            const drawX = s.x + oscX + parallax.x;
+            const drawY = s.y + oscY + parallax.y;
+            gsap.set(s.el, { x: drawX, y: drawY, rotation: rot });
           }
+        }
+
+        function pauseAll() {
+          paused = true;
+          sprites.forEach(s => s.vtween && s.vtween.pause());
+        }
+        function resumeAll() {
+          paused = false;
+          sprites.forEach(s => s.vtween && s.vtween.resume());
+        }
+
+        // Construction initiale
+        build();
+        if (!prefersReduced) {
+          updateWind();
+          attachParallax();
+          gsap.ticker.add(tick);
+        }
+
+        // ScrollTrigger désactivé: pas de pause/reprise liée au scroll
+
+        // Rebuild léger au redimensionnement (debounce)
+        let to = null;
+        window.addEventListener('resize', () => {
+          clearTimeout(to);
+          to = setTimeout(() => {
+            // Actualise config (tailles/vitesses selon écran)
+            cfg.count = (W() < 768 ? (prefersReduced ? 4 : 10) : (prefersReduced ? 8 : 22));
+            cfg.sizeMin = (W() < 768 ? 38 : 60);
+            cfg.sizeMax = (W() < 768 ? 82 : 120);
+            cfg.speedMin = (W() < 768 ? 18 : 28);
+            cfg.speedMax = (W() < 768 ? 30 : 45);
+            build();
+          }, 200);
         });
-      }, { threshold: 0.5 });
+      })();
       
-      counters.forEach(counter => counterObserver.observe(counter));
+      // Animations au scroll désactivées (affichage direct des sections)
+      
+      // KPI: afficher les valeurs finales immédiatement (pas d'animation au scroll)
+      document.querySelectorAll('.kpi-value').forEach(counter => {
+        const target = parseInt(counter.getAttribute('data-target'));
+        if (!isNaN(target)) {
+          counter.textContent = target.toLocaleString() + '+';
+        }
+      });
       
       // Lightbox moved below with typewriter behavior
       // Smooth scroll for anchor links
@@ -785,18 +942,7 @@
         });
       }
       
-      // Parallax effect on hero
-      const hero = document.querySelector('section[role="banner"]');
-      const heroImg = hero ? hero.querySelector('img') : null;
-      
-      if (heroImg) {
-        window.addEventListener('scroll', () => {
-          const scrolled = window.pageYOffset;
-          if (scrolled < hero.offsetHeight) {
-            heroImg.style.transform = `translateY(${scrolled * 0.5}px)`;
-          }
-        });
-      }
+      // Effet parallaxe désactivé
       
       // Add loading animation to images
       const images = document.querySelectorAll('img[loading="lazy"]');
@@ -812,7 +958,7 @@
       
       // Scroll to top button
       const scrollToTopBtn = document.createElement('button');
-      scrollToTopBtn.innerHTML = '↑';
+      scrollToTopBtn.innerHTML = '?';
       scrollToTopBtn.className = 'fixed bottom-8 right-8 bg-green-700 text-white w-12 h-12 rounded-full shadow-lg hover:bg-green-800 transition-all opacity-0 pointer-events-none z-50';
       scrollToTopBtn.setAttribute('aria-label', 'Retour en haut');
       document.body.appendChild(scrollToTopBtn);
@@ -961,12 +1107,8 @@
 
       // Social clicks tracking moved to script/pied-de-page.js
 
-      console.log('✅ A2S Premium Website loaded successfully!');
+      console.log('? A2S Premium Website loaded successfully!');
     });
   </script>
 </body>
 </html>
-
-
-
-

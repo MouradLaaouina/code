@@ -371,31 +371,8 @@ const Lightbox = (function() {
 // ============================================
 const Animations = (function() {
   function init() {
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    
-    if (prefersReducedMotion) {
-      gsap.set('.gsap-anim, .gsap-social', { 
-        opacity: 1, 
-        y: 0, 
-        scale: 1, 
-        rotation: 0 
-      });
-      return;
-    }
-
-    if (!window.gsap || !window.ScrollTrigger) return;
-
-    gsap.registerPlugin(ScrollTrigger);
-
-    // Hero animations
-    initHeroAnimations();
-    
-    // Section animations
-    initIntroAnimations();
-    initGalleryAnimations();
-    initPartnersAnimations();
-    initKPIAnimations();
-    initFooterAnimations();
+    // Désactivation globale des animations au scroll pour un affichage immédiat
+    return;
   }
 
   function initHeroAnimations() {
