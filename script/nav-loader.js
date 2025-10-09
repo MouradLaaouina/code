@@ -1,3 +1,11 @@
+/*
+  Charge et initialise dynamiquement la navigation du site.
+  - Ajoute le support du thème clair/sombre (meta + CSS + bouton flottant)
+  - Mesure la hauteur réelle du nav et l’expose via --navH (offset du contenu)
+  - Gère l’accessibilité: focus trap, aria-expanded, fermeture via Échap
+  - Comportements responsives: menu mobile, sous‑menus, recalcul au resize
+  - Idempotent: évite les doublons et nettoie les éléments existants
+*/
 (() => {
   // === Chargement nav + initialisation, version robuste et autonome ===
   function ensureThemeSupport() {

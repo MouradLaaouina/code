@@ -1,24 +1,16 @@
-/*
+﻿/*
   Script principal du site A2S
   - Navigation (mobile + sous-menus)
-  - Révélations au scroll
+  - RÃ©vÃ©lations au scroll
   - Historique (timeline + onglets)
   - Lightbox de galerie
   - Animations GSAP (hero, intro, galerie, partenaires, KPI, footer)
-  Respecte prefers-reduced-motion et évite les erreurs si un bloc est absent.
+  Respecte prefers-reduced-motion et Ã©vite les erreurs si un bloc est absent.
 */
 
 // ============================================
 // MODULE: Navigation
 // ============================================
-/*
-  Modules inclus:
-  - Navigation (mobile, sous-menus, accessibilité)
-  - Reveal on Scroll (apparition progressive)
-  - Timeline Pro et History (pages Historique)
-  - Lightbox (galerie)
-  - Animations (GSAP)
-*/
 const Navigation = (function() {
   function init() {
     const nav = document.querySelector('.nav');
@@ -42,7 +34,7 @@ const Navigation = (function() {
       });
     });
 
-    // Fermer avec Échap
+    // Fermer avec Ã‰chap
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape' && nav && nav.classList.contains('open')) {
         nav.classList.remove('open');
@@ -51,7 +43,7 @@ const Navigation = (function() {
       }
     });
 
-    // Réinitialiser en mode desktop
+    // RÃ©initialiser en mode desktop
     window.addEventListener('resize', function() {
       if (window.innerWidth > 768 && nav) {
         nav.classList.remove('open');
@@ -75,7 +67,6 @@ const Navigation = (function() {
 // ============================================
 // MODULE: Reveal on Scroll
 // ============================================
-// Ajoute la classe .is-visible quand les éléments .reveal entrent dans le viewport
 const RevealOnScroll = (function() {
   function init() {
     const toReveal = Array.from(document.querySelectorAll('.reveal'));
@@ -108,7 +99,6 @@ const RevealOnScroll = (function() {
 // ============================================
 // MODULE: Timeline Pro (Historique)
 // ============================================
-// Met à jour dynamiquement la carte de détails en fonction de l’année cliquée
 const TimelinePro = (function() {
   function init() {
     const years = Array.from(document.querySelectorAll('.timeline-pro .tp-year'));
@@ -165,7 +155,6 @@ const TimelinePro = (function() {
 // ============================================
 // MODULE: History (onglets)
 // ============================================
-// Bascule entre panneaux de contenu par année via des « chips » accessibles
 const History = (function() {
   function init() {
     const wrap = document.querySelector('.history-pro');
@@ -224,7 +213,7 @@ const HistoryCards = (function() {
     if (!cards.length) return;
 
     const titlesByYear = {
-      '2009': 'Création',
+      '2009': 'CrÃ©ation',
       '2012': 'Expansion',
       '2017': 'Innovation',
       '2025': 'Transformation'
@@ -312,7 +301,6 @@ const HistoryCards = (function() {
 // ============================================
 // MODULE: Lightbox
 // ============================================
-// Ouvre une image en superposition à partir d’un lien [data-lightbox]
 const Lightbox = (function() {
   let overlay;
 
@@ -381,10 +369,9 @@ const Lightbox = (function() {
 // ============================================
 // MODULE: GSAP Animations
 // ============================================
-// Contient des animations non bloquantes (désactivées par défaut pour performance)
 const Animations = (function() {
   function init() {
-    // Désactivation globale des animations au scroll pour un affichage immédiat
+    // DÃ©sactivation globale des animations au scroll pour un affichage immÃ©diat
     return;
   }
 
@@ -578,7 +565,7 @@ async function convertToWebP(filePath, outputPath) {
 }
 
 async function optimizeImages() {
-  console.log(`${colors.blue}🚀 Démarrage de l'optimisation des images...${colors.reset}\n`);
+  console.log(`${colors.blue}ðŸš€ DÃ©marrage de l'optimisation des images...${colors.reset}\n`);
   
   await ensureDir(OUTPUT_DIR);
   
@@ -588,11 +575,11 @@ async function optimizeImages() {
   );
   
   if (imageFiles.length === 0) {
-    console.log(`${colors.yellow}⚠️  Aucune image à optimiser trouvée${colors.reset}`);
+    console.log(`${colors.yellow}âš ï¸  Aucune image Ã  optimiser trouvÃ©e${colors.reset}`);
     return;
   }
   
-  console.log(`${colors.blue}📦 ${imageFiles.length} image(s) trouvée(s)${colors.reset}\n`);
+  console.log(`${colors.blue}ðŸ“¦ ${imageFiles.length} image(s) trouvÃ©e(s)${colors.reset}\n`);
   
   let converted = 0;
   let failed = 0;
@@ -615,25 +602,25 @@ async function optimizeImages() {
       converted++;
       
       console.log(
-        `${colors.green}✓${colors.reset} ${file} → ${outputFilename}`,
-        `(${(originalSize / 1024).toFixed(1)}KB → ${(info.size / 1024).toFixed(1)}KB)`,
+        `${colors.green}âœ“${colors.reset} ${file} â†’ ${outputFilename}`,
+        `(${(originalSize / 1024).toFixed(1)}KB â†’ ${(info.size / 1024).toFixed(1)}KB)`,
         `${colors.green}-${savedPercent}%${colors.reset}`
       );
     } catch (error) {
       failed++;
-      console.log(`${colors.red}✗${colors.reset} ${file} - ${error.message}`);
+      console.log(`${colors.red}âœ—${colors.reset} ${file} - ${error.message}`);
     }
   }
   
-  console.log(`\n${colors.blue}═══════════════════════════════════════${colors.reset}`);
-  console.log(`${colors.green}✓ Converties:${colors.reset} ${converted}`);
+  console.log(`\n${colors.blue}â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•${colors.reset}`);
+  console.log(`${colors.green}âœ“ Converties:${colors.reset} ${converted}`);
   if (failed > 0) {
-    console.log(`${colors.red}✗ Échouées:${colors.reset} ${failed}`);
+    console.log(`${colors.red}âœ— Ã‰chouÃ©es:${colors.reset} ${failed}`);
   }
-  console.log(`${colors.green}💾 Espace économisé:${colors.reset} ${(totalSaved / 1024).toFixed(1)}KB`);
-  console.log(`${colors.blue}═══════════════════════════════════════${colors.reset}\n`);
+  console.log(`${colors.green}ðŸ’¾ Espace Ã©conomisÃ©:${colors.reset} ${(totalSaved / 1024).toFixed(1)}KB`);
+  console.log(`${colors.blue}â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•${colors.reset}\n`);
   
-  console.log(`${colors.yellow}📌 Prochaines étapes:${colors.reset}`);
+  console.log(`${colors.yellow}ðŸ“Œ Prochaines Ã©tapes:${colors.reset}`);
   console.log(`   1. Copiez les fichiers .webp dans votre dossier d'images`);
   console.log(`   2. Utilisez <picture> avec fallback dans votre HTML`);
   console.log(`   Exemple:`);
@@ -643,9 +630,9 @@ async function optimizeImages() {
   console.log(`   </picture>\n`);
 }
 
-// Exécution
+// ExÃ©cution
 optimizeImages().catch(error => {
-  console.error(`${colors.red}❌ Erreur fatale:${colors.reset}`, error);
+  console.error(`${colors.red}âŒ Erreur fatale:${colors.reset}`, error);
 process.exit(1);
 });
 */
@@ -690,7 +677,6 @@ process.exit(1);
 // ============================================
 // INITIALISATION
 // ============================================
-// Active l’ensemble des modules quand le DOM est prêt
 document.addEventListener('DOMContentLoaded', () => {
   Navigation.init();
   RevealOnScroll.init();

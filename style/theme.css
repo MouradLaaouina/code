@@ -1,4 +1,10 @@
-/* Global auto light/dark theme */
+/*
+  Thème global clair/sombre automatique
+  - Définit les variables CSS pour les couleurs et ombres
+  - S’adapte à prefers-color-scheme et à body.dark
+  - Expose --navH et --nav-offset pour compenser la barre de navigation
+  - Respecte les préférences de réduction d’animations
+*/
 
 /* Base variables (light by default) */
 :root {

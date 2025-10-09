@@ -1,3 +1,9 @@
+/*
+  Configuration Tailwind CSS pour le site A2S
+  - Déclare les chemins de contenu HTML/JS à scanner
+  - Étend la palette avec les couleurs de marque
+  - Définit une police par défaut (Inter)
+*/
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./*.html', './src/**/*.{html,js}'],

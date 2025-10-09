@@ -1,3 +1,10 @@
+/*
+  Charge dynamiquement le pied de page et applique quelques ajustements:
+  - Déplace les balises <style> du fragment vers <head> (sans doublons)
+  - Supprime les <script> embarqués pour éviter les ré‑exécutions
+  - Met à jour l’année courante automatiquement
+  - Ajoute l’icône Instagram si absente (idempotent)
+*/
 (() => {
   function loadFooter() {
     // Ensure a placeholder exists near the end of body
