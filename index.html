@@ -697,22 +697,22 @@
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         
         <div class="kpi-card text-center">
-          <div class="kpi-value" data-target="15">0</div>
+          <div class="kpi-value" data-target="15" data-prefix="+">+0</div>
           <div class="text-gray-600 font-medium">Années d'expérience</div>
         </div>
         
         <div class="kpi-card text-center">
-          <div class="kpi-value" data-target="50">0</div>
+          <div class="kpi-value" data-target="50" data-prefix="+">+0</div>
           <div class="text-gray-600 font-medium">Produits certifiés</div>
         </div>
         
         <div class="kpi-card text-center">
-          <div class="kpi-value" data-target="200">0</div>
+          <div class="kpi-value" data-target="200" data-prefix="+">+0</div>
           <div class="text-gray-600 font-medium">Partenaires nationaux</div>
         </div>
         
         <div class="kpi-card text-center">
-          <div class="kpi-value" data-target="10000">0</div>
+          <div class="kpi-value" data-target="10000" data-prefix="+">+0</div>
           <div class="text-gray-600 font-medium">Clients satisfaits</div>
         </div>
         
@@ -934,12 +934,7 @@
       // Animations au scroll désactivées (affichage direct des sections)
       
       // KPI: afficher les valeurs finales immédiatement (pas d'animation au scroll)
-      document.querySelectorAll('.kpi-value').forEach(counter => {
-        const target = parseInt(counter.getAttribute('data-target'));
-        if (!isNaN(target)) {
-          counter.textContent = target.toLocaleString() + '+';
-        }
-      });
+      // KPIs animés via initKpiCounters()
       
       // Lightbox moved below with typewriter behavior
       // Smooth scroll for anchor links
@@ -1080,6 +1075,47 @@
         
         lazyImages.forEach(img => imageObserver.observe(img));
       }
+
+      // KPI counters (animated when section enters viewport)
+      (function initKpiCounters(){
+        const section = document.getElementById('chiffres');
+        if (!section) return;
+        const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const els = section.querySelectorAll('.kpi-value[data-target]');
+        if (!els.length) return;
+
+        const format = (n) => n.toLocaleString('fr-FR');
+        const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+
+        function animateEl(el){
+          if (el.dataset.animated === 'true') return;
+          el.dataset.animated = 'true';
+          const target = parseInt(el.getAttribute('data-target') || '0', 10);
+          const prefix = el.getAttribute('data-prefix') || '';
+          const suffix = el.getAttribute('data-suffix') || '';
+          const duration = Math.min(2200, Math.max(800, target > 5000 ? 1800 : 1400));
+          if (prefersReduced) { el.textContent = prefix + format(target) + suffix; return; }
+          const start = 0;
+          const t0 = performance.now();
+          function tick(now){
+            const p = Math.min(1, (now - t0) / duration);
+            const val = Math.round(start + (target - start) * easeOutCubic(p));
+            el.textContent = prefix + format(val) + suffix;
+            if (p < 1) requestAnimationFrame(tick);
+          }
+          requestAnimationFrame(tick);
+        }
+
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              els.forEach(animateEl);
+              io.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.25, rootMargin: '0px 0px -10% 0px' });
+        io.observe(section);
+      })();
       
       // Analytics tracking (placeholder)
       const trackEvent = (category, action, label) => {

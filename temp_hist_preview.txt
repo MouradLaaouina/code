@@ -1,10 +1,10 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="fr">
 <head>
   <!-- Page Historique chronologie et jalons d'A2S -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Alliance Synergie Santé - Notre Histoire</title>
+  <title>Alliance Synergie Santé — Notre Histoire</title>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
@@ -14,7 +14,6 @@
     .hist-hero{max-width:1100px;margin:40px auto 16px;padding:0 20px;text-align:center}
     .hist-hero h1{font-weight:800;font-size:clamp(1.8rem,3.2vw,2.6rem);margin:0;color:#1a3a1d}
     .hist-hero p{margin:.35rem 0 0;color:#4b5563}
-    .hist-hero .hist-logo{display:block;margin:0 auto 10px;width:clamp(140px,28vw,260px);height:auto;filter:drop-shadow(0 4px 12px rgba(0,0,0,.08))}
 
     /* Year chips (anchors) */
     .tl-chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:16px auto 28px;padding:0 12px}
@@ -67,18 +66,18 @@
   </style>
   <script src="script/nav-loader.js" defer></script>
   <script src="script/footer-loader.js" defer></script>
-  </head>
+</head>
 <body><!-- Placeholder de navigation (remplacé par nav-loader.js) --> 
   <div id="nav-placeholder" class="min-h-[60px]"></div>
 
   <section class="hist-hero">
-    <img src="images/A2S Logo Hist.png" alt="Alliance Synergie Santé" class="hist-logo">
+    <h1>Alliance Synergie Santé</h1>
     <p>Notre Histoire en Dates Clés</p>
     <div class="tl-chips" role="tablist" aria-label="Accès rapide par années">
       <button class="tl-chip" data-target="#y2009">2009</button>
-      <button class="tl-chip" data-target="#y2010">2010-2015</button>
-      <button class="tl-chip" data-target="#y2016">2016-2020</button>
-      <button class="tl-chip" data-target="#y2021">2021-2025</button>
+      <button class="tl-chip" data-target="#y2010">2010–2015</button>
+      <button class="tl-chip" data-target="#y2016">2016–2020</button>
+      <button class="tl-chip" data-target="#y2021">2021–2025</button>
     </div>
   </section>
 
@@ -95,21 +94,21 @@
       <li class="tl-item" id="y2010">
         <span class="tl-dot" aria-hidden="true"></span>
         <div class="tl-card">
-          <div class="tl-meta"><span class="tl-year">2010-2015</span><span class="tl-title">Développement et partenariats</span></div>
+          <div class="tl-meta"><span class="tl-year">2010–2015</span><span class="tl-title">Développement et partenariats</span></div>
           <p class="tl-desc">Établissement de relations stratégiques avec les professionnels de santé (gynécologues, dermatologues, médecins esthétiques). Distribution exclusive des marques espagnoles Sensilis et Cumlaude du laboratoire Dermofarm.</p>
         </div>
       </li>
       <li class="tl-item" id="y2016">
         <span class="tl-dot" aria-hidden="true"></span>
         <div class="tl-card">
-          <div class="tl-meta"><span class="tl-year">2016-2020</span><span class="tl-title">Expansion et reconnaissance</span></div>
+          <div class="tl-meta"><span class="tl-year">2016–2020</span><span class="tl-title">Expansion et reconnaissance</span></div>
           <p class="tl-desc">Présence réussie sur le marché marocain des produits dermo-cosmétiques. Partenariat renforcé avec le laboratoire Dermofarm qui choisit A2S comme partenaire privilégié au Maroc.</p>
         </div>
       </li>
       <li class="tl-item" id="y2021">
         <span class="tl-dot" aria-hidden="true"></span>
         <div class="tl-card">
-          <div class="tl-meta"><span class="tl-year">2021-2025</span><span class="tl-title">Consolidation et innovation</span></div>
+          <div class="tl-meta"><span class="tl-year">2021–2025</span><span class="tl-title">Consolidation et innovation</span></div>
           <p class="tl-desc">Développement intégral de produits de la conception à la livraison en pharmacie. Poursuite de la recherche, du développement et de la fabrication de solutions innovantes pour les professionnels de la santé.</p>
         </div>
       </li>
