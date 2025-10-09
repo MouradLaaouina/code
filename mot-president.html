@@ -8,6 +8,7 @@
   <title>Mot du pr&eacute;sident &ndash; Alliance Synergie Sant&eacute;</title>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
   <script>
     tailwind=config={};
   </script>
@@ -22,17 +23,62 @@
   </script>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&display=swap" rel="stylesheet">
   <style>
+    /* Mise en page principale */
     .mot-president { padding: 40px 20px; max-width: 900px; margin: auto; }
     .president-info { display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start; }
-    .photo-president { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; object-position: center; box-shadow: 0 6px 18px rgba(0,0,0,0.08); }
+    .texte-president { flex: 1; min-width: 280px; }
+
+    /* Photo PDG: carrée, responsive, recadrée au centre */
+    .photo-president {
+      width: clamp(120px, 22vw, 180px);
+      aspect-ratio: 1 / 1; /* maintient un carré */
+      height: auto;
+      border-radius: 10px; /* coins doux (carré) */
+      object-fit: cover;
+      object-position: center;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    }
+    /* Intégration dans le texte sur écrans larges */
     .photo-president.photo-inline { float: left; margin: 0 14px 10px 0; }
-    .texte-president { flex: 1; }
-    .texte-president h3 { margin: 0; font-size: 1.5em; }
-    .texte-president h4 { margin: 5px 0 15px; font-size: 1.2em; font-style: italic; color: #666; }
-    .texte-president h5 { margin-bottom: 20px; font-size: 1.1em; font-weight: normal; color: #555; }
-    .texte-president p { margin-bottom: 1em; line-height: 1.6; text-align: justify; }
-    @media (max-width: 600px){ .photo-president{ width: 120px; height: 120px; } }
+
+    /* Typo (lisibilité) */
+    .texte-president h3 { margin: 0; font-size: 1.6em; font-weight: 800; color: #1a3a1d; }
+    .texte-president h4 { margin: 6px 0 14px; font-size: 1.15em; font-style: italic; color: #4b5563; }
+    .texte-president h5 { margin-bottom: 18px; font-size: 1.05em; font-weight: 600; color: #374151; }
+    .texte-president p { margin-bottom: 1em; line-height: 1.8; text-align: left; color: #243b2a; font-size: 1.03rem; }
+    .texte-president h3 { font-family: 'Playfair Display', serif; letter-spacing: .2px; }
+    .texte-president h4 { letter-spacing: .2px; }
+
+    /* Style "Lettre du PDG" */
+    .lead { font-size: 1.15rem; line-height: 1.9; color: #1f3b24; font-weight: 500; }
+    .lead::first-letter {
+      float: left;
+      font-family: 'Playfair Display', serif;
+      font-size: 3.2rem;
+      line-height: 1;
+      padding-right: .2rem;
+      padding-top: .15rem;
+      color: #2f6b2f;
+    }
+    .ceo-quote { border-left: 4px solid #2f6b2f; padding: .5rem 1rem; margin: 1rem 0; font-style: italic; background: #e8f5ee; border-radius: 8px; }
+    .signature { margin-top: 1.25rem; padding-top: .75rem; border-top: 1px solid #dfe8e2; color: #2f3e2b; font-style: italic; }
+
+    /* Mot spécial en gras et couleur de marque */
+    .texte-president .special { font-weight: 800; color: #2f6b2f; }
+
+    /* Responsivité: photo au-dessus en mobile, sans float */
+    @media (max-width: 640px){
+      /* Image centrée et élargie sur mobile */
+      .photo-president { width: clamp(200px, 75vw, 320px); margin: 0 auto 12px; }
+      .photo-president.photo-inline { float: none; display: block; }
+      .lead::first-letter { float: none; font-size: inherit; padding: 0; color: inherit; }
+    }
+    /* Bloc signature du PDG (angle bas) */
+    .ceo-signature { margin-top: 14px; text-align: right; }
+    .ceo-signature .sign { font-family: 'Caveat', 'Patrick Hand', 'Indie Flower', cursive; font-size: 2rem; color: #2f6b2f; line-height: 1; display: inline-block; transform: rotate(-2deg); }
+    .ceo-signature .role { color: #4b5563; font-size: 0.95rem; margin-top: .2rem; }
   </style>
 <script src="script/nav-loader.js" defer></script>
 <script src="script/footer-loader.js" defer></script>
@@ -42,21 +88,43 @@
   <section class="mot-president">
     <div class="president-info">
       <div class="texte-president">
-        <img src="PDG.jpg" alt="Photo du Pr&eacute;sident" class="photo-president photo-inline">
-        <h3>Mourad Laaouina</h3>
-        <h4>Pr&eacute;sident de la CMP</h4>
-        <h5>Mourad Laaouina</h5>
-        <p>
-          Ch&egrave;res collaboratrices, chers collaborateurs, ch&egrave;res partenaires, nous poursuivons une trajectoire fond&eacute;e sur la confiance, la proximit&eacute; et l&rsquo;excellence op&eacute;rationnelle. Notre force r&eacute;side dans l&rsquo;esprit d&rsquo;&eacute;quipe et l&rsquo;engagement de chacune et chacun, au service de projets utiles et durables.
+        <img src="images/PDG.PNG" alt="Photo du Pr&eacute;sident" class="photo-president photo-inline">
+        <h3>Youssef BEKKAL</h3>
+        <h4>Chief Executive Officer - A2S</h4>
+        <h5>« Ensemble, construisons la santé de demain »</h5>
+        <p class="lead">
+          Chez <strong>Alliance Synergie Santé</strong>, nous croyons que la santé 
+          de demain se construit <strong>ensemble</strong> — à la croisée de la 
+          <strong>science</strong>, de l’<strong>innovation</strong> et de 
+          l’<strong>humain</strong>.  
         </p>
         <p>
-          Dans un contexte en &eacute;volution, nous restons fid&egrave;les &agrave; nos valeurs et &agrave; notre vision pour l&rsquo;Afrique, en d&eacute;ployant des solutions responsables, innovantes et inclusives.
+        Notre mission est claire : <b>créer des passerelles</b> entre les professionnels, 
+        les partenaires et les patients, pour bâtir un écosystème où la qualité des soins 
+        rime avec proximité, efficacité et confiance.
         </p>
+        <p>
+        Chaque jour, nos équipes s’engagent à innover, à écouter et à agir avec un seul 
+        objectif : <strong>améliorer la vie</strong>.
+        </p>
+      <p class="ceo-quote">
+        Parce que derrière chaque chiffre, chaque technologie et chaque réussite, 
+        il y a avant tout des personnes.
+      </p>
+      <p class="signature">
+        Nous avançons avec passion, responsabilité et audace, convaincus que la <strong>synergie des talents</strong> 
+        est la clé d’une santé plus accessible et plus humaine.
+      </p>
+      <p>
+        <m>L’avenir est en marche — et il s’écrit avec vous.</m>
+      </p>
+      <div class="ceo-signature">
+        <div class="sign">Youssef Bekkal</div>
+        <div class="role">Président-Directeur Général d'A2S</div>
       </div>
     </div>
-  </section>
-
+  </div>
+</section>
   <script src="script.js" defer></script>
 </body>
 </html>
-
