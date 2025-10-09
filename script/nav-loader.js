@@ -52,14 +52,53 @@
 
   function initTheme() {
     const body = document.body;
+
+    // Base: préférence utilisateur (localStorage) ou système
+    let baseIsDark = false;
     try {
       const saved = localStorage.getItem('theme');
       const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-      const isDark = saved ? (saved === 'dark') : prefersDark;
-      body.classList.toggle('dark', !!isDark);
+      baseIsDark = saved ? (saved === 'dark') : prefersDark;
     } catch (_) { /* no-op */ }
 
-    // Toggle bouton (si présent)
+    // Fenêtre nuit: 20:00 → 06:00
+    const NIGHT_START = 20;
+    const DAY_START = 6;
+
+    const isNightHour = () => {
+      const h = new Date().getHours();
+      return (h >= NIGHT_START || h < DAY_START);
+    };
+
+    const applyTheme = () => {
+      const isDark = isNightHour() ? true : baseIsDark;
+      body.classList.toggle('dark', !!isDark);
+    };
+
+    const scheduleNext = () => {
+      const now = new Date();
+      const h = now.getHours();
+      const next = new Date(now);
+      if (h >= NIGHT_START) {
+        // Tomorrow at 06:00 (day)
+        next.setDate(now.getDate() + 1);
+        next.setHours(DAY_START, 0, 0, 0);
+      } else if (h < DAY_START) {
+        // Today at 06:00 (day)
+        next.setHours(DAY_START, 0, 0, 0);
+      } else {
+        // Today at 20:00 (night)
+        next.setHours(NIGHT_START, 0, 0, 0);
+      }
+      const delay = Math.max(0, next - now);
+      setTimeout(() => { applyTheme(); scheduleNext(); }, delay);
+    };
+
+    // Apply now, then schedule boundary switch
+    applyTheme();
+    scheduleNext();
+
+    // Optional support if a nav toggle exists
     const toggle = document.getElementById('dark-toggle-nav');
     if (toggle) {
       toggle.addEventListener('click', () => {
@@ -228,7 +267,7 @@
 
       // Initialisations dépendantes du DOM inséré
       initTheme();
-      ensureFloatingThemeToggle();
+      // Floating toggle disabled: automatic theme at 20:00
       initA11yAndMenu();
       updateNavOffset();
       window.addEventListener('resize', debounce(updateNavOffset, 150));
