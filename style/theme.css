@@ -120,3 +120,43 @@ a { color: inherit; }
 .dark .text-green-700 { color: #86efac !important; }
 
 .dark .text-green-600 { color: #a7f3d0 !important; }
+
+/* Navigation: ergonomie mobile/desktop améliorée */
+@media (max-width: 767.98px) {
+  /* Panneau mobile: hauteur max sous la barre, scroll si contenu long */
+  #primary-nav {
+    max-height: calc(100vh - var(--navH, 60px) - var(--safe-top, 0px));
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  /* Sous-menus en accordéon: sans position absolue, transitions douces */
+  .nav .has-submenu > .submenu {
+    position: static !important;
+    box-shadow: none !important;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-top: 8px;
+    padding: 4px 0;
+    transform: none !important;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.25s ease, opacity 0.2s ease;
+    background: var(--card);
+  }
+  .nav .has-submenu > [data-submenu-toggle][aria-expanded="true"] + .submenu {
+    opacity: 1;
+    max-height: 600px;
+  }
+  .nav .submenu a { padding: 10px 16px; display: block; }
+}
+
+/* Backdrop lors de l’ouverture du menu mobile */
+.nav-backdrop {
+  position: fixed;
+  top: var(--navH, 60px);
+  left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.35);
+  backdrop-filter: saturate(120%) blur(2px);
+  z-index: 40; /* sous nav (z-50) mais au-dessus du contenu */
+}

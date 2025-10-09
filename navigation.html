@@ -1,4 +1,4 @@
-﻿<!-- Navigation principale -->
+<!-- Navigation principale -->
 <!-- Fragment inclus dynamiquement via script/nav-loader.js -->
 <nav class="nav bg-white dark:bg-gray-900 shadow-lg fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out" aria-label="Navigation principale">
   <div class="container mx-auto px-4 py-1 flex items-center justify-between">
@@ -25,39 +25,39 @@
       <!-- A2S -->
       <li class="relative group has-submenu" role="none">
         <button class="nav-link text-gray-700 dark:text-gray-200 hover:text-emerald-600 font-semibold py-2 px-4 rounded-md transition-colors duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-emerald-300"
-                aria-haspopup="true" aria-expanded="false" data-submenu-toggle>
+                aria-haspopup="true" aria-expanded="false" aria-controls="submenu-a2s" data-submenu-toggle>
           A2S
           <svg class="inline-block w-4 h-4 ml-1 transform group-hover:rotate-180 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
           </svg>
         </button>
-        <ul class="submenu absolute left-0 top-full w-56 bg-white dark:bg-gray-800 shadow-xl rounded-lg py-3 mt-2 transform scale-y-0 md:group-hover:scale-y-100 md:opacity-100 origin-top opacity-0 md:opacity-100 z-10"
-            aria-label="Sous-menu Entreprise" role="menu">
-          <li><a href="mot-president.html" class="block px-5 py-2.5 text-gray-600 dark:text-gray-200 hover:bg-emerald-50 dark:hover:bg-gray-700 hover:text-emerald-600 transition-colors duration-200">Mot du président</a></li>
-          <li><a href="historique.html" class="block px-5 py-2.5 text-gray-600 dark:text-gray-200 hover:bg-emerald-50 dark:hover:bg-gray-700 hover:text-emerald-600 transition-colors duration-200">Historique</a></li>
-          <li><a href="organigramme.html" class="block px-5 py-2.5 text-gray-600 dark:text-gray-200 hover:bg-emerald-50 dark:hover:bg-gray-700 hover:text-emerald-600 transition-colors duration-200">Organigramme</a></li>
-          <li><a href="chiffres-cles.html" class="block px-5 py-2.5 text-gray-600 dark:text-gray-200 hover:bg-emerald-50 dark:hover:bg-gray-700 hover:text-emerald-600 transition-colors duration-200">Chiffres clés</a></li>
-          <li><a href="chaine-de-valeurs.html" class="block px-5 py-2.5 text-gray-600 dark:text-gray-200 hover:bg-emerald-50 dark:hover:bg-gray-700 hover:text-emerald-600 transition-colors duration-200">Chaîne de valeurs</a></li>
+        <ul id="submenu-a2s" class="submenu absolute left-0 top-full w-56 bg-white dark:bg-gray-800 shadow-xl rounded-lg py-3 mt-2 transform scale-y-0 md:group-hover:scale-y-100 md:opacity-100 origin-top opacity-0 md:opacity-100 z-10"
+            aria-label="Sous-menu A2S" role="menu">
+          <li role="none"><a role="menuitem" href="mot-president.html" class="block px-5 py-2.5 text-gray-600 dark:text-gray-200 hover:bg-emerald-50 dark:hover:bg-gray-700 hover:text-emerald-600 transition-colors duration-200">Mot du président</a></li>
+          <li role="none"><a role="menuitem" href="historique.html" class="block px-5 py-2.5 text-gray-600 dark:text-gray-200 hover:bg-emerald-50 dark:hover:bg-gray-700 hover:text-emerald-600 transition-colors duration-200">Historique</a></li>
+          <li role="none"><a role="menuitem" href="organigramme.html" class="block px-5 py-2.5 text-gray-600 dark:text-gray-200 hover:bg-emerald-50 dark:hover:bg-gray-700 hover:text-emerald-600 transition-colors duration-200">Organigramme</a></li>
+          <li role="none"><a role="menuitem" href="chiffres-cles.html" class="block px-5 py-2.5 text-gray-600 dark:text-gray-200 hover:bg-emerald-50 dark:hover:bg-gray-700 hover:text-emerald-600 transition-colors duration-200">Chiffres clés</a></li>
+          <li role="none"><a role="menuitem" href="chaine-de-valeurs.html" class="block px-5 py-2.5 text-gray-600 dark:text-gray-200 hover:bg-emerald-50 dark:hover:bg-gray-700 hover:text-emerald-600 transition-colors duration-200">Chaîne de valeurs</a></li>
         </ul>
       </li>
 
-      <li><a href="metiers.html" class="nav-link text-gray-700 dark:text-gray-200 hover:text-emerald-600 font-semibold py-2 px-4 rounded-md transition">MÉTIERS</a></li>
-      <li><a href="partenaires.html" class="nav-link text-gray-700 dark:text-gray-200 hover:text-emerald-600 font-semibold py-2 px-4 rounded-md transition">PARTENAIRES</a></li>
-      <li><a href="carrieres.html" class="nav-link text-gray-700 dark:text-gray-200 hover:text-emerald-600 font-semibold py-2 px-4 rounded-md transition">Carrières</a></li>
-      <li><a href="mediatheque.html" class="nav-link text-gray-700 dark:text-gray-200 hover:text-emerald-600 font-semibold py-2 px-4 rounded-md transition">Médiathèque</a></li>
+      <li role="none"><a role="menuitem" href="metiers.html" class="nav-link text-gray-700 dark:text-gray-200 hover:text-emerald-600 font-semibold py-2 px-4 rounded-md transition">Métiers</a></li>
+      <li role="none"><a role="menuitem" href="partenaires.html" class="nav-link text-gray-700 dark:text-gray-200 hover:text-emerald-600 font-semibold py-2 px-4 rounded-md transition">Partenaires</a></li>
+      <li role="none"><a role="menuitem" href="carrieres.html" class="nav-link text-gray-700 dark:text-gray-200 hover:text-emerald-600 font-semibold py-2 px-4 rounded-md transition">Carrières</a></li>
+      <li role="none"><a role="menuitem" href="mediatheque.html" class="nav-link text-gray-700 dark:text-gray-200 hover:text-emerald-600 font-semibold py-2 px-4 rounded-md transition">Médiathèque</a></li>
 
       <!-- Stratégie -->
       <li class="relative group has-submenu" role="none">
         <button class="nav-link text-gray-700 dark:text-gray-200 hover:text-emerald-600 font-semibold py-2 px-4 rounded-md transition focus:outline-none focus:ring-2 focus:ring-emerald-300"
-                aria-haspopup="true" aria-expanded="false" data-submenu-toggle>
+                aria-haspopup="true" aria-expanded="false" aria-controls="submenu-strategie" data-submenu-toggle>
           Stratégie
           <svg class="inline-block w-4 h-4 ml-1 transform group-hover:rotate-180 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
           </svg>
         </button>
-        <ul class="submenu absolute left-0 top-full w-56 bg-white dark:bg-gray-800 shadow-xl rounded-lg py-3 mt-2 transform scale-y-0 md:group-hover:scale-y-100 md:opacity-100 origin-top opacity-0 md:opacity-100 z-10"
+        <ul id="submenu-strategie" class="submenu absolute left-0 top-full w-56 bg-white dark:bg-gray-800 shadow-xl rounded-lg py-3 mt-2 transform scale-y-0 md:group-hover:scale-y-100 md:opacity-100 origin-top opacity-0 md:opacity-100 z-10"
             aria-label="Sous-menu Stratégie" role="menu">
-          <li><a href="vision-afrique.html" class="block px-5 py-2.5 text-gray-600 dark:text-gray-200 hover:bg-emerald-50 dark:hover:bg-gray-700 hover:text-emerald-600 transition-colors duration-200">Vision pour l'Afrique</a></li>
+          <li role="none"><a role="menuitem" href="vision-afrique.html" class="block px-5 py-2.5 text-gray-600 dark:text-gray-200 hover:bg-emerald-50 dark:hover:bg-gray-700 hover:text-emerald-600 transition-colors duration-200">Vision pour l'Afrique</a></li>
         </ul>
       </li>
 
@@ -66,7 +66,7 @@
   </div>
 </nav>
 
-<!-- Scripts -->
+<!-- Scripts (non exécutés lorsqu'inséré via nav-loader.js) -->
 <script>
 (function () {
   const body = document.body;
@@ -75,7 +75,7 @@
   const openIcon = document.querySelector('.menu-icon-open');
   const closeIcon = document.querySelector('.menu-icon-close');
 
-  // Theme
+  // Theme (fallback si nav-loader absent)
   function applyInitialTheme() {
     try {
       const saved = localStorage.getItem('theme');
@@ -94,20 +94,20 @@
     });
   }
 
-  // Mobile menu
+  // Mobile menu (fallback si nav-loader absent)
   function openMenu() {
     nav.classList.remove('hidden');
     setTimeout(() => nav.classList.remove('opacity-0', 'translate-y-4'), 10);
-    openIcon.classList.add('hidden');
-    closeIcon.classList.remove('hidden');
+    openIcon && openIcon.classList.add('hidden');
+    closeIcon && closeIcon.classList.remove('hidden');
     btn.setAttribute('aria-expanded', 'true');
     body.classList.add('overflow-hidden');
   }
   function closeMenu() {
     nav.classList.add('opacity-0', 'translate-y-4');
     setTimeout(() => nav.classList.add('hidden'), 250);
-    openIcon.classList.remove('hidden');
-    closeIcon.classList.add('hidden');
+    openIcon && openIcon.classList.remove('hidden');
+    closeIcon && closeIcon.classList.add('hidden');
     btn.setAttribute('aria-expanded', 'false');
     body.classList.remove('overflow-hidden');
   }
@@ -115,7 +115,7 @@
     nav.classList.contains('hidden') ? openMenu() : closeMenu();
   }
 
-  // Close on link click (mobile)
+  // Fermer au clic sur un lien (mobile)
   nav.addEventListener('click', (e) => {
     const link = e.target.closest('a');
     if (link && window.matchMedia('(max-width: 767px)').matches && !nav.classList.contains('hidden')) {
@@ -123,23 +123,25 @@
     }
   });
 
-  // Submenu click on mobile
+  // Sous-menu mobile via [aria-expanded]
   document.querySelectorAll('[data-submenu-toggle]').forEach(btnSub => {
     btnSub.addEventListener('click', (e) => {
       if (window.matchMedia('(min-width: 768px)').matches) return;
-      const submenu = btnSub.closest('.has-submenu').querySelector('.submenu');
+      e.preventDefault();
       const expanded = btnSub.getAttribute('aria-expanded') === 'true';
+      document.querySelectorAll('[data-submenu-toggle][aria-expanded="true"]').forEach(other => {
+        if (other !== btnSub) other.setAttribute('aria-expanded', 'false');
+      });
       btnSub.setAttribute('aria-expanded', String(!expanded));
-      submenu.style.opacity = expanded ? '0' : '1';
-      submenu.style.transform = expanded ? 'scaleY(0)' : 'scaleY(1)';
     });
   });
 
-  // Init
+  // Init (fallback si nav-loader absent)
   document.addEventListener('DOMContentLoaded', () => {
     applyInitialTheme();
     initDarkToggle();
-    btn.addEventListener('click', toggleMenu);
+    btn && btn.addEventListener('click', toggleMenu);
   });
 })();
 </script>
+

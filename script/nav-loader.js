@@ -142,6 +142,7 @@
     if (!navPanel || !btn) return; // Sécurité
 
     const isMobile = () => window.matchMedia('(max-width: 767px)').matches;
+    let backdropEl = null;
 
     // Focus trap simple lorsque le menu mobile est ouvert
     let lastFocused;
@@ -171,6 +172,14 @@
       // Focus sur le premier lien du menu
       const firstLink = navPanel.querySelector('a, button');
       firstLink && firstLink.focus();
+      // Backdrop pour fermer au clic hors du panneau
+      if (!backdropEl) {
+        backdropEl = document.createElement('div');
+        backdropEl.className = 'nav-backdrop';
+        backdropEl.setAttribute('aria-hidden', 'true');
+        backdropEl.addEventListener('click', closeMenu);
+      }
+      if (!backdropEl.isConnected) document.body.appendChild(backdropEl);
     }
 
     function closeMenu() {
@@ -182,6 +191,11 @@
       body.classList.remove('overflow-hidden');
       document.removeEventListener('keydown', trapFocus);
       if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
+      if (backdropEl && backdropEl.isConnected) {
+        backdropEl.removeEventListener('click', closeMenu);
+        document.body.removeChild(backdropEl);
+        backdropEl = null;
+      }
     }
 
     function toggleMenu() {
@@ -205,8 +219,6 @@
       // État fermé par défaut côté mobile
       function setOpen(open) {
         btnSub.setAttribute('aria-expanded', String(open));
-        submenu.style.opacity = open ? '1' : '0';
-        submenu.style.transform = open ? 'scaleY(1)' : 'scaleY(0)';
       }
 
       // Sur desktop : laissé à :hover via CSS; sur mobile : toggle au clic
@@ -214,6 +226,9 @@
         if (!isMobile()) return; // desktop => ne rien faire
         e.preventDefault();
         const expanded = btnSub.getAttribute('aria-expanded') === 'true';
+        document.querySelectorAll('[data-submenu-toggle][aria-expanded="true"]').forEach((other) => {
+          if (other !== btnSub) other.setAttribute('aria-expanded', 'false');
+        });
         setOpen(!expanded);
       });
 
