@@ -106,7 +106,6 @@ a { color: inherit; }
 .dark .bg-white,
 .dark .bg-gray-50,
 .dark .bg-gray-100,
-.dark .bg-gray-200 { background-color: var(--card) !important; }
 
 .dark .border-gray-100,
 .dark .border-gray-200,
@@ -160,3 +159,21 @@ a { color: inherit; }
   backdrop-filter: saturate(120%) blur(2px);
   z-index: 40; /* sous nav (z-50) mais au-dessus du contenu */
 }
+
+/* ------- Dark Mode Readability (global) ------- */
+/* Ensure consistent contrast for pages with custom colors */
+.dark body { background: var(--bg); color: var(--text); }
+.dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 { color: var(--text) !important; }
+.dark p, .dark li, .dark dt, .dark dd, .dark blockquote, .dark figcaption, .dark time, .dark small, .dark label { color: var(--text) !important; }
+.dark a { color: var(--text) !important; }
+
+/* Media tuning on dark surfaces (subtle) */
+.dark img:not([data-keep-bright]),
+.dark video:not([data-keep-bright]) { filter: brightness(0.98) contrast(1.03); }
+
+/* Utilities for special assets */
+.dark .invert-on-dark { filter: invert(1) hue-rotate(180deg); }
+.dark .dim-on-dark { filter: brightness(0.88) contrast(1.08); }
+
+/* SVG defaults: inherit text color */
+.dark svg { color: var(--text); }

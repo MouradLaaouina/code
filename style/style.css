@@ -226,6 +226,8 @@ img, svg, video { max-width: 100%; height: auto; display: block; }
   filter: grayscale(100%);
   transition: filter 0.3s ease, transform 0.25s ease;
 }
+.dark .partners-track img { filter: grayscale(100%) brightness(0.92); }
+.dark .partners-track img:hover { filter: grayscale(0%) brightness(1); }
 
 .partners-track img:hover {
   filter: grayscale(0%);
