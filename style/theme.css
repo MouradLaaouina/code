@@ -97,7 +97,6 @@ a { color: inherit; }
 /* Tailwind helpers when body has .dark (manual/system via navigation) */
 .dark .text-gray-900,
 .dark .text-gray-800,
-.dark .text-gray-700 { color: var(--text) !important; }
 
 .dark .text-gray-600,
 .dark .text-gray-500,
@@ -165,7 +164,6 @@ a { color: inherit; }
 .dark body { background: var(--bg); color: var(--text); }
 .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 { color: var(--text) !important; }
 .dark p, .dark li, .dark dt, .dark dd, .dark blockquote, .dark figcaption, .dark time, .dark small, .dark label { color: var(--text) !important; }
-.dark a { color: var(--text) !important; }
 
 /* Media tuning on dark surfaces (subtle) */
 .dark img:not([data-keep-bright]),
