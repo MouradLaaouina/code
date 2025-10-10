@@ -1,0 +1,184 @@
+﻿<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Nos Gammes – Alliance Synergie Santé (A2S)</title>
+  <meta name="description" content="Découvrez nos gammes dermocosmétiques et leurs pages Instagram officielles." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <!-- Tailwind for navigation styles -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Dynamic nav/footer loaders (applique aussi le mode sombre auto 20h–6h) -->
+  <script src="script/nav-loader.js" defer></script>
+  <script src="script/footer-loader.js" defer></script>
+  <style>
+    :root {
+      --brand: #58b840;       /* vert A2S */
+      --brand-2: #58c048;     /* variante */
+      --ink: #202020;         /* texte principal */
+      --muted: #5a5f63;       /* texte secondaire */
+      --line: rgba(88,184,64,.25);
+      --bg: #f7f9f7;          /* fond page clair */
+      --card: #ffffff;        /* fond fiche */
+      --gap: 18px;
+    }
+    *{box-sizing:border-box}
+    body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;margin:0}
+    /* Padding-top géré automatiquement par nav-loader (via --navH) */
+    .container{max-width:1280px;margin:0 auto;padding:40px 20px}
+
+    /* Hero */
+    .hero{text-align:center;padding:20px 12px 36px}
+    .hero h1{font-size:clamp(28px,5vw,48px);font-weight:900;margin:0 0 8px;background:linear-gradient(135deg,var(--brand),var(--brand-2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .hero p{color:var(--muted);margin:0}
+
+    /* Carousel wrapper */
+    .carousel{position:relative}
+    .slides{display:grid;grid-auto-flow:column;gap:var(--gap);overflow-x:auto;scroll-snap-type:x mandatory;padding:10px 8px 18px;scrollbar-width:thin}
+    /* Nombre de fiches par vue selon largeur */
+    .slides{grid-auto-columns:90%}            /* mobile par défaut: ~1 carte */
+    @media (min-width:600px){ .slides{grid-auto-columns:70%} }  /* petit tablet: ~1.4 */
+    @media (min-width:900px){ .slides{grid-auto-columns:55%} }  /* tablet: ~1.8 */
+    @media (min-width:1200px){ .slides{grid-auto-columns:45%} } /* desktop: ~2.2 */
+    @media (min-width:1400px){ .slides{grid-auto-columns:33.333%} } /* large: 3 */
+    @media (min-width:1800px){ .slides{grid-auto-columns:25%} }  /* xlarge: 4 */
+
+    .slides::-webkit-scrollbar{height:10px}
+    .slides::-webkit-scrollbar-thumb{background:var(--line);border-radius:9999px}
+
+    /* Fiche produit (slide) */
+    .gamme-slide{scroll-snap-align:start;background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 6px 18px rgba(0,0,0,.06);display:grid;grid-template-columns:140px 1fr;align-items:stretch;min-height:170px;transition:transform .2s ease, box-shadow .2s ease}
+    .gamme-slide:hover{transform:translateY(-4px);box-shadow:0 10px 28px rgba(88,184,64,.18)}
+
+    /* Logo column with reflective mirror background */
+    .slide-media{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg, rgba(88,184,64,.08), rgba(88,192,72,.04));border-right:1px solid var(--line);padding:16px;border-top-left-radius:18px;border-bottom-left-radius:18px}
+    .slide-media img{max-width:100%;object-fit:contain;position:relative;z-index:1}
+    .slide-media .logo-reflection{position:absolute;left:50%;bottom:-10px;transform:translateX(-50%) scaleY(-1);opacity:.22;filter:blur(2px) saturate(.9);z-index:0;pointer-events:none;max-width:100%;height:auto;object-fit:contain;
+      -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,.55), rgba(0,0,0,0));
+              mask-image: linear-gradient(to bottom, rgba(0,0,0,.55), rgba(0,0,0,0));}
+    .slide-media::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;
+      background:
+        linear-gradient(140deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.1) 35%, rgba(255,255,255,0) 65%),
+        radial-gradient(120% 80% at 30% 20%, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0) 60%),
+        linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0));
+    }
+    .slide-media::after{content:"";position:absolute;inset:-40% -60% -40% -60%;pointer-events:none;z-index:0;
+      background: linear-gradient(120deg, rgba(255,255,255,0), rgba(255,255,255,0.20), rgba(255,255,255,0));
+      transform: none; /* no moving sheen for realism */
+      opacity:.20;
+    }
+
+    /* Colonne contenu */
+    .slide-body{position:relative;padding:16px 18px}
+    .slide-title{font-weight:800;font-size:1.2rem;margin:0 0 4px;text-transform:uppercase;color:#1c1f1c}
+    .slide-meta{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:.92rem;margin-bottom:8px}
+    .slide-desc{color:#2c2f2c;line-height:1.6;margin:0 56px 0 0}
+
+    /* Instagram bouton — toujours visible */
+    .insta-btn{position:absolute;top:14px;right:14px;display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:50%;background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);box-shadow:0 4px 12px rgba(220,39,67,.25);text-decoration:none}
+    .insta-btn img{width:20px;height:20px;filter:brightness(0) invert(1)}
+    .insta-btn.is-disabled{filter:grayscale(100%);opacity:.45;pointer-events:none}
+
+
+    /* Flèches de navigation — visibles en permanence */
+    .nav-btn{position:absolute;top:50%;transform:translateY(-50%);z-index:5;width:44px;height:44px;border-radius:9999px;border:1px solid var(--line);background:#fff;box-shadow:0 6px 18px rgba(0,0,0,.08);display:grid;place-items:center;cursor:pointer;transition:transform .15s ease, box-shadow .15s ease}
+    .nav-btn:hover{transform:translateY(-50%) scale(1.05);box-shadow:0 8px 24px rgba(0,0,0,.12)}
+    .nav-left{left:-6px}
+    .nav-right{right:-6px}
+    .nav-icon{font-size:18px;color:#1b1f1b}
+
+    /* Responsive affinement des colonnes du slide */
+    @media (max-width: 768px){
+      .gamme-slide{grid-template-columns:110px 1fr}
+      .slide-desc{margin-right:0}
+    }
+    @media (prefers-reduced-motion: reduce){
+      .insta-btn{transition:none}
+    }
+  </style>
+</head>
+<body>
+  <!-- Placeholder évite le décalage visuel avant insertion de la nav -->
+  <div id="nav-placeholder" class="min-h-[60px]" style="background: linear-gradient(135deg, #B8860B 0%, #D4AF37 22%, #FFD700 45%, #FFF1A8 60%, #FFC94D 78%, #B98900 100%);"></div>
+  <main>
+    <div class="container">
+      <section class="hero">
+        <h1>Nos Gammes Premium</h1>
+        <p>Mourad LAAOUINA</p>
+      </section>
+
+      <section class="carousel" aria-label="Carrousel des gammes">
+        <button class="nav-btn nav-left" type="button" aria-label="Précédent"><span class="nav-icon">❮</span></button>
+        <div class="slides" id="slides"></div>
+        <button class="nav-btn nav-right" type="button" aria-label="Suivant"><span class="nav-icon">❯</span></button>
+      </section>
+    </div>
+  </main>
+  <script src="script/footer-loader.js" defer></script>
+  <script>
+    // Données : logoHeight (px) pour ajuster la taille par marque + Instagram pour toutes
+    const gammes=[
+      {name:'D-CAP',country:'A2S-Maroc',flag:'®',instagram:'https://www.instagram.com/dcap.maroc.a2s/',logos:['images/11.png'],logoHeight:64,description:"Gamme dermocosmétique marocaine spécialisée dans les soins de la peau, offrant des produits pour le traitement des imperfections cutanées, l'hydratation et la protection solaire. Particulièrement adaptée aux peaux méditerranéennes et africaines."},
+      {name:'D-WHITE',country:'A2S-Maroc',flag:'®',instagram:'https://www.instagram.com/dwhite.maroc.a2s/',logos:['images/1.png'],logoHeight:64,description:"Gamme dermocosmétique marocaine dédiée à l'éclaircissement et l'uniformisation du teint. Propose des solutions pour traiter les taches pigmentaires, les imperfections et apporter de l'éclat à la peau."},
+      {name:'Sensilis',country:'Espagne',flag:'🇪🇸',instagram:'https://www.instagram.com/sensilis_oficial/',logos:['images/10.png'],logoHeight:70,description:"Marque dermocosmétique espagnole haut de gamme alliant efficacité dermatologique et plaisir sensoriel. Spécialisée dans les soins anti-âge, hydratants et correcteurs avec des textures sophistiquées et des parfums délicats."},
+      {name:'Buccotherm',country:'France',flag:'🇫🇷',instagram:'https://www.instagram.com/buccotherm.maroc.a2s/',logos:['images/2.png'],logoHeight:60,description:"Gamme française de soins bucco-dentaires à base d'eau thermale de Castéra-Verduzan. Propose des dentifrices, bains de bouche et soins pour gencives sensibles, adaptés à toute la famille."},
+      {name:'Casmara',country:'Espagne',flag:'🇪🇸',instagram:'https://www.instagram.com/casmara_oficial/',logos:['images/3.png'],logoHeight:60,description:"Marque espagnole professionnelle spécialisée dans les masques peel-off et les protocoles de soins en cabine. Reconnue pour ses traitements innovants combinant efficacité et expérience sensorielle luxueuse."},
+      {name:'CASTERA',country:'France',flag:'🇫🇷',instagram:'https://www.instagram.com/castera.maroc.a2s/',logos:['images/5.png'],logoHeight:58,description:"Gamme française de soins capillaires à base d'eau thermale de Castéra-Verduzan. Propose des shampoings et traitements pour cuirs chevelus sensibles, irrités ou sujets aux pellicules."},
+      {name:'Florame',country:'France',flag:'🇫🇷',instagram:'https://www.instagram.com/florame.a2s.maroc/',logos:['images/6.png'],logoHeight:62,description:"Marque française pionnière en aromathérapie et cosmétique bio certifiée. Spécialisée dans les huiles essentielles, huiles végétales et soins naturels respectueux de l'environnement."},
+      {name:'ELCÉA',country:'France',flag:'🇫🇷',instagram:'https://www.instagram.com/elcea.maroc.a2s/',logos:['images/7.png'],logoHeight:56,description:"Gamme dermocosmétique française proposant des soins quotidiens pour toute la famille. Focus sur des formules simples, efficaces et accessibles pour l'hydratation, le nettoyage et la protection de la peau."},
+      {name:'BABÉ',country:'Espagne',flag:'🇪🇸',instagram:'https://www.instagram.com/babelaboratorios.maroc/',logos:['images/9.png'],logoHeight:64,description:"Marque dermocosmétique espagnole offrant des solutions complètes pour tous les types de peaux et tous les âges. Reconnue pour son excellent rapport qualité-prix et ses formules testées dermatologiquement."},
+      {name:'ONAGRINE',country:'France',flag:'🇫🇷',instagram:'https://www.instagram.com/onagrine.maroc.a2s/',logos:['images/onagrine.png'],logoHeight:64,description:"Marque française de cosmétiques à base d'huile d'onagre et d'actifs naturels. Spécialisée dans les soins anti-âge, hydratants et régénérants pour préserver la jeunesse et l'éclat de la peau."}
+    ];
+
+    const slidesEl = document.getElementById('slides');
+
+    function slideTemplate(g){
+      const logo = (g.logos && g.logos[0]) || 'images/placeholder.png';
+      const h = g.logoHeight || 64;
+      const instaClass = (g.instagram && g.instagram !== '#') ? 'insta-btn' : 'insta-btn is-disabled';
+      const instaTitle = (g.instagram && g.instagram !== '#') ? `Aller sur Instagram de ${g.name}` : `Instagram bientôt disponible`;
+      const instaHref = (g.instagram && g.instagram !== '#') ? g.instagram : '#';
+      return `
+        <article class="gamme-slide">
+          <div class="slide-media">
+            <img class="logo-main" src="${logo}" alt="${g.name}" style="height:${h}px">
+            <img class="logo-reflection" src="${logo}" alt="" aria-hidden="true" style="height:${h}px">
+          </div>
+          <div class="slide-body">
+            <a class="${instaClass}" href="${instaHref}" target="_blank" rel="noopener" aria-label="${instaTitle}" title="${instaTitle}"><img src="images/instagram.png" alt="Instagram"></a>
+            <h3 class="slide-title">${g.name}</h3>
+            <div class="slide-meta"><span>${g.flag}</span><span>${g.country}</span></div>
+            <p class="slide-desc">${g.description}</p>
+          </div>
+        </article>`;
+    }
+
+    function render(){ slidesEl.innerHTML = gammes.map(slideTemplate).join(''); }
+
+    // Navigation boutons — visibles en permanence
+    const btnPrev = document.querySelector('.nav-left');
+    const btnNext = document.querySelector('.nav-right');
+
+    function cardWidth(){
+      const first = slidesEl.querySelector('.gamme-slide');
+      return first ? first.getBoundingClientRect().width + parseInt(getComputedStyle(slidesEl).columnGap || getComputedStyle(slidesEl).gap || 18) : 340;
+    }
+    function scrollByCard(dir){ slidesEl.scrollBy({left: dir * cardWidth(), behavior:'smooth'}); }
+    btnPrev.addEventListener('click', () => scrollByCard(-1));
+    btnNext.addEventListener('click', () => scrollByCard(1));
+
+    // drag to scroll (desktop/mobile)
+    let isDown=false,startX,scrollLeft;
+    slidesEl.addEventListener('mousedown',e=>{isDown=true;slidesEl.classList.add('drag');startX=e.pageX;scrollLeft=slidesEl.scrollLeft});
+    slidesEl.addEventListener('mouseleave',()=>isDown=false);
+    slidesEl.addEventListener('mouseup',()=>isDown=false);
+    slidesEl.addEventListener('mousemove',e=>{ if(!isDown)return; e.preventDefault(); const walk=(e.pageX-startX); slidesEl.scrollLeft=scrollLeft-walk; });
+    slidesEl.addEventListener('touchstart',e=>{isDown=true;startX=e.touches[0].pageX;scrollLeft=slidesEl.scrollLeft},{passive:true});
+    slidesEl.addEventListener('touchend',()=>isDown=false);
+    slidesEl.addEventListener('touchmove',e=>{ if(!isDown)return; const x=e.touches[0].pageX; const walk=(x-startX); slidesEl.scrollLeft=scrollLeft-walk; },{passive:true});
+
+    render();
+  </script>
+</body>
+</html>
