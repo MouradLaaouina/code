@@ -586,42 +586,52 @@
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         
         <article class="gallery-item rounded-xl overflow-hidden shadow-lg">
-          <img src="images/Laboratoire.png" 
-               alt="Laboratoire de recherche A2S pour solutions dermo-cosmétiques" 
+          <img src="images/expertise.jpg" 
+               alt="L'expertise santé & beauté" 
                class="w-full h-64 object-cover"
                loading="lazy">
-          <div class="gallery-overlay">
-            <h3 class="text-lg font-semibold">Laboratoire de recherche</h3>
+          <div class="gallery-overlay" data-lightbox-text="Alliance Synergie Santé est spécialisée dans les soins de la peau avec une 
+          démarche complète : diagnostic capillaire, diagnostic de teinte, recommandations personnalisées et accompagnement des professionnels 
+          (dermatologues, médecins esthétiques). Toute la chaîne, de la conception à la livraison en pharmacie, est gérée en interne pour garantir 
+          l’innovation et la qualité à chaque étape.">
+            <h3 class="text-lg font-semibold">L'expertise santé & beauté</h3>
           </div>
         </article>
         
         <article class="gallery-item rounded-xl overflow-hidden shadow-lg">
-          <img src="https://images.unsplash.com/photo-1631549916768-4119b2e5f926?w=600&q=80" 
-               alt="Équipe de production A2S pour produits dermo-cosmétiques" 
+          <img src="images/partenariat.jpg" 
+               alt="Nos marques partenaires innovantes" 
                class="w-full h-64 object-cover"
                loading="lazy">
-          <div class="gallery-overlay">
-            <h3 class="text-lg font-semibold">Équipe de production</h3>
+          <div class="gallery-overlay" data-lightbox-text="L’univers rassemble une sélection de marques expertes reconnues pour leur 
+          efficacité : soins dermo-cosmétiques, hygiène intime, solutions capillaires, produits bucco-dentaires et bien plus (BABÉ, 
+          Sensilis, Cumlaude, Dwhite, Florame, Onagrine, Elcéa, Casmara, BuccoTherm, Castera, DCAP, etc.). Chaque marque propose des 
+          gammes adaptées à des besoins précis, pour tous types de peaux et tous âges.">
+            <h3 class="text-lg font-semibold">Nos marques partenaires innovantes</h3>
           </div>
         </article>
         
         <article class="gallery-item rounded-xl overflow-hidden shadow-lg">
-          <img src="images/Produits dermo.png" 
-               alt="Produits dermo-cosmétiques certifiés A2S" 
+          <img src="images/engagement.jpg" 
+               alt="L'éthique & l'engagement responsable" 
                class="w-full h-64 object-cover"
                loading="lazy">
-          <div class="gallery-overlay">
-            <h3 class="text-lg font-semibold">Produits dermo-cosmétiques</h3>
+          <div class="gallery-overlay" data-lightbox-text="L’entreprise met en avant des valeurs fortes : respect de l’environnement, 
+          sécurité des formules, responsabilité sociale et inclusion. Une attention particulière 
+          est portée à la transparence, à l’origine des ingrédients et à l’accompagnement écologique tout au long du cycle de vie des produits">
+            <h3 class="text-lg font-semibold">L'éthique & l'engagement responsable</h3>
           </div>
         </article>
         
         <article class="gallery-item rounded-xl overflow-hidden shadow-lg">
-          <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=600&q=80" 
-               alt="Centre de distribution A2S pour solutions dermo-cosmétiques" 
+          <img src="images/experience.jpg" 
+               alt="Expériences & conseils personnalisés" 
                class="w-full h-64 object-cover"
                loading="lazy">
-          <div class="gallery-overlay">
-            <h3 class="text-lg font-semibold">Centre de distribution</h3>
+          <div class="gallery-overlay" data-lightbox-text="Chez Alliance Synergie Santé, le client bénéficie d’une expérience sur-mesure : 
+          diagnostic, conseils individualisés, suivi, espace d’informations et d’actualités, campagnes de prévention, événements de formation et 
+          interactivité avec une équipe d’experts en santé et beauté. Des supports et outils digitaux accompagnent et facilitent le parcours de soin ou d’achat">
+            <h3 class="text-lg font-semibold">Expériences & conseils personnalisés</h3>
           </div>
         </article>
         
@@ -702,17 +712,17 @@
         </div>
         
         <div class="kpi-card text-center">
-          <div class="kpi-value" data-target="50" data-prefix="+">+0</div>
+          <div class="kpi-value" data-target="54" data-prefix="+">+0</div>
           <div class="text-gray-600 font-medium">Produits certifiés</div>
         </div>
         
         <div class="kpi-card text-center">
-          <div class="kpi-value" data-target="200" data-prefix="+">+0</div>
+          <div class="kpi-value" data-target="230" data-prefix="+">+0</div>
           <div class="text-gray-600 font-medium">Partenaires nationaux</div>
         </div>
         
         <div class="kpi-card text-center">
-          <div class="kpi-value" data-target="10000" data-prefix="+">+0</div>
+          <div class="kpi-value" data-target="10754" data-prefix="+">+0</div>
           <div class="text-gray-600 font-medium">Clients satisfaits</div>
         </div>
         
@@ -1134,7 +1144,6 @@
       const lightboxImg = document.getElementById('lightbox-img');
       const lightboxClose = document.getElementById('lightbox-close');
       const lightboxText = document.getElementById('lightbox-text');
-      const TYPE_TEXT = 'xxxxxxx laaouina mourad xxxxxxxx';
       let typeTimer = null;
 
       function typewriter(text, speed = 45) {
@@ -1150,12 +1159,12 @@
         }, speed);
       }
 
-      function openLightbox(src) {
+      function openLightbox(src, captionText) {
         overlay.classList.add('open');
         lightboxImg.classList.remove('animate-in');
         lightboxImg.src = src;
         setTimeout(() => lightboxImg.classList.add('animate-in'), 20);
-        typewriter(TYPE_TEXT, 45);
+        typewriter(captionText || '', 45);
       }
 
       function closeLightbox() {
@@ -1171,7 +1180,13 @@
         el.addEventListener('click', (e) => {
           const item = e.currentTarget.closest('.gallery-item');
           const imgEl = item ? item.querySelector('img') : null;
-          if (imgEl && imgEl.src) openLightbox(imgEl.src);
+          if (imgEl && imgEl.src) {
+            const overlayEl = item ? item.querySelector('.gallery-overlay') : null;
+            const caption = (overlayEl && overlayEl.dataset && overlayEl.dataset.lightboxText)
+              || (overlayEl && overlayEl.querySelector('h3') ? overlayEl.querySelector('h3').textContent : '')
+              || (imgEl.getAttribute('alt') || '');
+            openLightbox(imgEl.src, caption);
+          }
         });
       });
 
@@ -1187,5 +1202,3 @@
   </script>
 </body>
 </html>
-
-
