@@ -292,6 +292,37 @@
       }
       window.addEventListener('load', () => requestAnimationFrame(updateNavOffset));
 
+      // Nav entrance animation + scroll-reactive styling
+      const navEl = document.querySelector('nav.nav');
+      if (navEl) {
+        requestAnimationFrame(() => navEl.classList.add('nav-mounted'));
+        const setNavScrollState = () => {
+          const y = window.scrollY || document.documentElement.scrollTop || 0;
+          navEl.classList.toggle('scrolled', y > 8);
+          const alpha = Math.min(0.24, 0.08 + Math.min(y, 240) / 240 * 0.16);
+          try { navEl.style.setProperty('--nav-shadow-alpha', String(alpha.toFixed ? alpha.toFixed(2) : alpha)); } catch(_){}
+        };
+        setNavScrollState();
+        window.addEventListener('scroll', setNavScrollState, { passive: true });
+      }
+
+      // Active link indicator
+      try {
+        const path = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
+        const links = Array.from(document.querySelectorAll('#primary-nav a[href]'));
+        const match = links.find(a => (a.getAttribute('href') || '').toLowerCase().endsWith(path));
+        if (match) {
+          match.classList.add('active');
+          match.setAttribute('aria-current', 'page');
+          const parent = match.closest('.has-submenu');
+          const parentBtn = parent ? parent.querySelector('[data-submenu-toggle]') : null;
+          if (parentBtn) parentBtn.classList.add('active');
+        } else if (path === '' || path === '/' || path === 'index.html') {
+          const brand = document.querySelector('.brand');
+          if (brand) brand.classList.add('active');
+        }
+      } catch(_) {}
+
     } catch (err) {
       console.error('Échec du chargement de la navigation:', err);
     }

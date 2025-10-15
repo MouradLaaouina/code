@@ -214,7 +214,7 @@
       letter-spacing: 0.3px;
       
       display: inline-block;
-      font-size: clamp(4rem, 12vw, 8rem); /* taille augmentée pour plus d’impact */
+      font-size: clamp(6rem, 16vw, 12rem); /* encore plus grand mobile & desktop */
       line-height: 1.2;
       text-shadow: 0 2px 6px rgba(0,0,0,0.18); /* léger ombrage pour le contraste */
     }
@@ -537,7 +537,7 @@
 
     <div class="relative h-full flex items-center justify-center text-center px-4">
       <div class="hero-content max-w-4xl flex flex-col items-center">
-        <img src="images/A2S Logo 1.png" alt="Alliance Synergie Sante" class="w-40 md:w-56 lg:w-64 mb-6 drop-shadow-xl" loading="eager" width="256" height="256">
+        <img src="images/A2S Logo 1.png" alt="Alliance Synergie Sante" class="w-96 md:w-[28rem] lg:w-[32rem] xl:w-[36rem] 2xl:w-[40rem] max-w-[92vw] mb-6 drop-shadow-xl" loading="eager" width="256" height="256">
         <p class="text-xl md:text-2xl mb-8 handwritten font-bold home-signature">
           Solutions dermo-cosmétiques innovantes et durables 
           pour les professionnels de la santé et de la beauté au Maroc.  
@@ -550,7 +550,7 @@
     document.addEventListener('DOMContentLoaded', function(){
       var el = document.querySelector('.home-signature');
       if (!el) return;
-      var text = 'Solutions dermo-cosm\u00E9tiques innovantes et durables pour les professionnels de la sant\u00E9 et de la beaut\u00E9 au Maroc.';
+      var text = 'Solutions dermo-cosmétiques innovantes et durables pour les professionnels de la santé et de la beauté au Maroc.';
       el.textContent = '';
       var steps = text.length;
       var total = 5000; // 5s
@@ -586,7 +586,7 @@
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         
         <article class="gallery-item rounded-xl overflow-hidden shadow-lg">
-          <img src="images/expertise.jpg" 
+          <img src="images/expertise.png" 
                alt="L'expertise santé & beauté" 
                class="w-full h-64 object-cover"
                loading="lazy">
