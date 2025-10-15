@@ -142,6 +142,16 @@
     if (!navPanel || !btn) return; // Sécurité
 
     const isMobile = () => window.matchMedia('(max-width: 767px)').matches;
+    // Ensure desktop state always shows the nav inline with full opacity
+    const ensureDesktopState = () => {
+      if (!navPanel) return;
+      if (!isMobile()) {
+        navPanel.classList.remove('hidden', 'opacity-0', 'translate-y-4');
+      }
+    };
+    // Apply immediately and on resize
+    ensureDesktopState();
+    window.addEventListener('resize', debounce(ensureDesktopState, 120));
     let backdropEl = null;
 
     // Focus trap simple lorsque le menu mobile est ouvert
