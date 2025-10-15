@@ -23,6 +23,9 @@
   /* Hide legacy brand text and use gradient split version */
   .brand > .brand-text { display: none !important; }
   .brand-text, .brand-text-new { font-weight: 800; letter-spacing: -0.01em; line-height: 1; display: inline-flex; gap: 2px; }
+  /* Toujours sur une seule ligne, même en petit écran */
+  .brand { flex-wrap: nowrap; white-space: nowrap; }
+  .brand-text-new { white-space: nowrap; align-items: baseline; font-size: clamp(0.95rem, 3.8vw, 1.25rem); }
   .brand-text .part-1, .brand-text-new .part-1 { background: linear-gradient(180deg, #bdabab 0%, #444 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
   .dark .brand-text .part-1, .dark .brand-text-new .part-1 { background: linear-gradient(180deg, #e5e7eb 0%,); }
   .brand-text .part-2, .brand-text-new .part-2 { background: linear-gradient(90deg, #2f6b2f 0%, #4a9d4a 50%, #2f6b2f 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
@@ -54,6 +57,12 @@
   .nav .submenu { box-shadow: 0 14px 32px rgba(0,0,0,.18); border: 1px solid rgba(255,255,255,.28); }
   .dark .nav .submenu { border-color: rgba(38,56,46,0.9); }
 
+  /* Rendre le panneau mobile du menu bien lisible et complet */
+  #primary-nav { max-width: 100%; }
+  @media (max-width: 767.98px) {
+    #primary-nav { width: 100%; }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     nav.nav { transition: none; transform: none; opacity: 1; }
     .nav .nav-link::after, .nav .submenu a::after { transition: none; }
@@ -61,7 +70,7 @@
   }
 </style>
 <nav class="nav fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out backdrop-blur-md bg-white/10 dark:bg-gray-900/10 shadow-sm" aria-label="Navigation principale">
-  <div class="container mx-auto px-4 py-2 flex items-center justify-between">
+  <div class="container mx-auto px-4 py-2 flex items-center justify-start">
     <a class="brand flex items-center gap-3 transform hover:scale-105 transition-transform duration-200" href="index.html" aria-label="Alliance Synergie SantÃ© - Accueil">
       <span class="w-10 h-10 rounded-full bg-white/80 dark:bg-gray-800/80 shadow-md ring-1 ring-white/20 flex items-center justify-center">
         <img src="images/logo principal.png" alt="Logo A2S" width="32" height="32" class="object-contain w-8 h-8">
@@ -71,7 +80,7 @@
     </a>
 
     <!-- Bouton hamburger -->
-    <button class="menu-button md:hidden text-gray-900 dark:text-white hover:text-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-400 rounded-lg p-2"
+    <button class="menu-button md:hidden ml-auto text-gray-900 dark:text-white hover:text-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-400 rounded-lg p-2"
             aria-label="Ouvrir le menu" aria-controls="primary-nav" aria-expanded="false">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" class="transition-transform duration-300">
         <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="menu-icon-open"/>
@@ -81,7 +90,7 @@
 
     <!-- Menu principal -->
     <ul id="primary-nav"
-        class="hidden md:flex md:items-center md:space-x-8 absolute md:static top-full left-0 right-0 bg-white/10 dark:bg-gray-900/10 md:bg-transparent backdrop-blur-md md:backdrop-blur-none shadow-md md:shadow-none p-6 md:p-0 transform translate-y-4 md:transform-none opacity-0 md:opacity-100 transition-all duration-300 ease-in-out"
+        class="hidden flex flex-col gap-2 md:flex md:flex-row md:items-center md:justify-center md:space-x-8 md:mx-auto absolute md:static top-full left-0 right-0 w-full bg-white/80 dark:bg-gray-900/80 md:bg-transparent backdrop-blur-md md:backdrop-blur-none shadow-xl md:shadow-none p-6 md:p-0 rounded-b-2xl md:rounded-none border border-white/20 dark:border-gray-700/40 md:border-0 transform translate-y-4 md:transform-none opacity-0 md:opacity-100 transition-all duration-300 ease-in-out"
         role="menubar">
       <!-- A2S -->
       <li class="relative group has-submenu" role="none">
@@ -101,7 +110,6 @@
         </ul>
       </li>
 
-      <li role="none"><a role="menuitem" href="metiers.html" class="nav-link text-gray-900 dark:text-white hover:text-emerald-500 font-semibold py-2 px-4 rounded-lg transition-colors duration-200">Métiers</a></li>
       <li role="none"><a role="menuitem" href="games.html" class="nav-link text-gray-900 dark:text-white hover:text-emerald-500 font-semibold py-2 px-4 rounded-lg transition-colors duration-200">Gammes</a></li>
       <li role="none"><a role="menuitem" href="mediatheque.html" class="nav-link text-gray-900 dark:text-white hover:text-emerald-500 font-semibold py-2 px-4 rounded-lg transition-colors duration-200">Médiathèque</a></li>
       <li role="none"><a role="menuitem" href="carrieres.html" class="nav-link text-gray-900 dark:text-white hover:text-emerald-500 font-semibold py-2 px-4 rounded-lg transition-colors duration-200">Carrières</a></li>

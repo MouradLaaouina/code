@@ -112,6 +112,8 @@ a { color: inherit; }
     max-height: calc(100vh - var(--navH, 60px) - var(--safe-top, 0px));
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
+    backdrop-filter: saturate(120%) blur(8px);
+    box-shadow: 0 16px 32px rgba(0,0,0,.18);
   }
   /* Sous-menus en accordéon: sans position absolue, transitions douces */
   .nav .has-submenu > .submenu {
@@ -132,6 +134,9 @@ a { color: inherit; }
     opacity: 1;
     max-height: 600px;
   }
+  /* Indiquer visuellement l'ouverture des sous-menus sur mobile */
+  .nav .has-submenu > [data-submenu-toggle] svg { transition: transform .2s ease; }
+  .nav .has-submenu > [data-submenu-toggle][aria-expanded="true"] svg { transform: rotate(180deg); }
   .nav .submenu a { padding: 10px 16px; display: block; }
 }
 
@@ -161,3 +166,12 @@ a { color: inherit; }
 
 /* SVG defaults: inherit text color */
 .dark svg { color: var(--text); }
+
+/* Hide links to removed pages */
+a[href="metiers.html"],
+[href="metiers.html"],
+.nav a[href="metiers.html"],
+#primary-nav a[href="metiers.html"] {
+  display: none !important;
+  pointer-events: none !important;
+}

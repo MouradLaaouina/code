@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact ultra dynamique</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <!-- Tailwind pour les styles utilitaires utilisés par la navigation/pied de page -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Navigation et pied de page dynamiques -->
+  <script src="script/nav-loader.js" defer></script>
+  <script src="script/footer-loader.js" defer></script>
+  <style>
+    :root {
+      --bg-whatsapp: linear-gradient(120deg,#d2f2e4 0%,#9ffaad 100%);
+      --bg-email: linear-gradient(120deg,#dde6fe 0%,#ceddfc 100%);
+      --bg-telegram: linear-gradient(120deg,#e1eafd 0%,#a5d2fe 100%);
+      --title: #109d3b;
+      --title-dark: #86efac;
+      --action: #109d3b;
+      --action-dark: #86efac;
+    }
+    /* Page baseline sur le thème global */
+    body { margin:0; min-height:100vh; font-family:"Segoe UI", Arial, sans-serif; background: var(--bg); color: var(--text); }
+    /* Bande d'ambiance (dégradé par canal) */
+    .contact-ambient { background: var(--bg-whatsapp); transition: background .54s ease; }
+    body[data-mode="email"] .contact-ambient { background: var(--bg-email); }
+    body[data-mode="tg"] .contact-ambient { background: var(--bg-telegram); }
+    .dark .contact-ambient { background: linear-gradient(135deg, #0f1f0f 0%, #16251a 100%); }
+
+    /* Carte principale */
+    .contact-box { background: var(--card); color: var(--text); border-radius: 22px; box-shadow: var(--shadow, 0 12px 38px rgba(0,0,0,0.18)); max-width: 380px; width: 100%; padding: 31px 20px 18px 20px; text-align:center; position:relative; animation:slideFade .78s cubic-bezier(.67,.23,.18,1.09); overflow: hidden; transition:background .36s,color .36s; }
+    @keyframes slideFade {from{opacity:0;transform:translateY(80px) scale(.96);}to{opacity:1;transform:translateY(0) scale(1);}}
+
+    .welcome-bubble { display:inline-block; background:linear-gradient(100deg,#e7fbe9,#f7fafc 160%); color:#157a42; border-radius:18px; padding:9px 14px; margin-bottom:14px; animation:chatBubbleIn .45s; font-size:1em; transition:background .36s,color .36s; }
+    .dark .welcome-bubble { background:linear-gradient(90deg,#223127,#1b2a22); color:#86efac; }
+    @keyframes chatBubbleIn {from{opacity:0;transform:translateY(-12px);}to{opacity:1;transform:translateY(0);}}
+
+    .stats-row { margin-bottom:10px; color:#18af63; font-size:.97em; letter-spacing:1px; display:flex; justify-content:space-between; align-items:center; }
+    .dark .stats-row { color:#86efac; }
+    .response-row { color:#188657; font-size:.93em; margin-bottom:8px; }
+    .dark .response-row { color:#86efac; }
+    .contact-box h1 { color:var(--title); margin-bottom:14px; font-size:1.15em; }
+    .dark .contact-box h1 { color: var(--title-dark); }
+
+    .contact-actions { display:flex; gap:13px; justify-content:center; margin-bottom:12px; flex-wrap:wrap; }
+    .act-btn { border:none; background:#e3eeea; color:var(--action); border-radius:10px; padding:12px 13px; font-size:1.08em; cursor:pointer; display:flex; align-items:center; gap:10px; outline:none; font-weight:600; margin-bottom:4px; box-shadow:0 1.5px 7px #109d3b12; position:relative; transition:.20s; }
+    .act-btn.active,.act-btn:focus,.act-btn:hover { background:linear-gradient(98deg,#19a157 60%,#157a42 100%); color:#fff; box-shadow:0 2px 14px #109d3b22; transform:scale(1.06); }
+    .act-btn:active { animation:pulsebtn .18s; }
+    @keyframes pulsebtn {0%{transform:scale(1.06);}100%{transform:scale(0.97);}}
+
+    .dynamic-form { margin-top:10px; display:none; animation:growForm .39s; background:rgba(237,252,238,.11); border-radius:13px; padding-top:3px; }
+    @keyframes growForm{from{opacity:0;transform:scale(.91);}to{opacity:1;transform:scale(1);}}
+    .dynamic-form.show { display:block; }
+    .dynamic-form input,.dynamic-form textarea { width:94%; padding:10px 12px; margin:7px 0 14px 0; border:1px solid var(--border); border-radius:7px; font-size:1em; font-family:inherit; background:var(--card); color:var(--text); resize:none; outline:none; box-shadow:0 1px 3px rgba(0,0,0,0.05); }
+
+    .send-btn { background:linear-gradient(90deg,#109d3b 60%,#19a157 100%); color:#fff; border:none; border-radius:10px; font-size:1.08em; padding:13px 0; width:96%; cursor:pointer; font-weight:700; margin-bottom:6px; transition:.16s; box-shadow:0 1px 8px #109d3b18; position:relative; overflow:hidden; }
+    .send-btn:active { animation:pulsebtn .17s; }
+    .send-btn.sent { background:linear-gradient(90deg,#157a42 60%,#19a157 100%); box-shadow:0 1px 16px #109d3b22; }
+    .sent-msg { color:#19a157; min-height:18px; margin-top:6px; font-size:.97em; }
+    .dark .sent-msg { color:#86efac; }
+
+    
+
+    @media (max-width:400px){ .contact-box{ padding:9px 4px; width:99vw; } }
+  </style>
+</head>
+<body>
+  <main class="container mx-auto px-4 py-10">
+    <div class="contact-ambient rounded-2xl py-10">
+      <div class="flex justify-center">
+        <div class="contact-box" id="contactBox">
+          <span class="welcome-bubble" id="welcomeBubble"></span>
+          <div class="stats-row">
+            <span id="clientsCount">+ 124 clients servis cette semaine</span>
+            <span id="liveTime">16h40</span>
+          </div>
+          <div class="response-row" id="responseTime">Dernière réponse en moins de 5 min</div>
+          <h1>Mourad  LAAOUINA</h1>
+          <div class="contact-actions">
+            <button class="act-btn active" id="wa-btn"><i class="fab fa-whatsapp"></i> WhatsApp</button>
+            <button class="act-btn" id="mail-btn"><i class="fa fa-envelope"></i> Email</button>
+            <button class="act-btn" id="tg-btn"><i class="fab fa-telegram"></i> Telegram</button>
+          </div>
+          <form class="dynamic-form show" id="wa-form">
+            <input type="text" id="wa-name" placeholder="Prénom (facultatif)">
+            <textarea id="wa-msg" placeholder="Votre message…" maxlength="220" required></textarea>
+            <button type="submit" class="send-btn">Envoyer sur WhatsApp</button>
+            <div class="sent-msg" id="wa-ok"></div>
+          </form>
+          <form class="dynamic-form" id="mail-form">
+            <input type="text" id="mail-name" placeholder="Prénom (facultatif)">
+            <textarea id="mail-msg" placeholder="Votre message…" maxlength="220" required></textarea>
+            <button type="submit" class="send-btn">Envoyer par Email</button>
+            <div class="sent-msg" id="mail-ok"></div>
+          </form>
+          <form class="dynamic-form" id="tg-form">
+            <input type="text" id="tg-name" placeholder="Prénom (facultatif)">
+            <textarea id="tg-msg" placeholder="Votre message…" maxlength="220" required></textarea>
+            <button type="submit" class="send-btn">Envoyer sur Telegram</button>
+            <div class="sent-msg" id="tg-ok"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+  <script>
+    // Variables personnalisables
+    const waNumber = "212660047133"; // WhatsApp
+    const mailTo = "admou2025@hotmail.com"; // Email
+    const tgUser = "Mrlaa12"; // Telegram username
+    let clientsServis = 124;
+
+    // Message d'accueil selon heure
+    function bienvenue() {
+      const h = new Date().getHours();
+      let result = "👋 ";
+      if(h < 12) result += "Bonjour !";
+      else if(h < 18) result += "Bon après-midi !";
+      else result += "Bonsoir !";
+      document.getElementById('welcomeBubble').textContent = result + " Choisissez comment nous écrire.";
+    }
+    bienvenue();
+
+    // Live clock et empreinte horaire
+    function updateTime() {
+      const now = new Date();
+      const hh = now.getHours().toString().padStart(2,'0');
+      const mm = now.getMinutes().toString().padStart(2,'0');
+      document.getElementById('liveTime').textContent = `${hh}:${mm}`;
+      document.getElementById('responseTime').textContent = "Dernière réponse en moins de " + (Math.floor(Math.random()*4)+2) + " min";
+    }
+    updateTime();
+    setInterval(updateTime, 15000);
+
+    // Stats clients (valeur simulée avec effet dynamique)
+    function updateStats(){
+      let target = clientsServis + Math.floor(Math.random()*7);
+      let el = document.getElementById('clientsCount');
+      let count = clientsServis;
+      const intv = setInterval(()=>{
+        if(count < target){ count++; el.textContent = '+ ' + count + ' clients servis cette semaine'; }
+        else clearInterval(intv);
+      },45);
+    }
+    updateStats();
+    setInterval(updateStats,21000);
+
+    // Choix mode, changement de fond
+    const btns = { wa:document.getElementById('wa-btn'), mail:document.getElementById('mail-btn'), tg:document.getElementById('tg-btn') };
+    const forms = { wa:document.getElementById('wa-form'), mail:document.getElementById('mail-form'), tg:document.getElementById('tg-form') };
+
+    function showForm(mode){
+      Object.values(btns).forEach(b=>b.classList.remove('active'));
+      Object.values(forms).forEach(f=>f.classList.remove('show'));
+      btns[mode].classList.add('active');
+      forms[mode].classList.add('show');
+      const bgMode = (mode === 'mail') ? 'email' : mode;
+      document.body.setAttribute('data-mode', bgMode);
+    }
+    // Init état visuel
+    document.body.setAttribute('data-mode','wa');
+    btns.wa.onclick = ()=>showForm('wa');
+    btns.mail.onclick = ()=>showForm('mail');
+    btns.tg.onclick = ()=>showForm('tg');
+
+    // Le thème clair/sombre est géré globalement par la navigation (nav-loader)
+
+    // Confetti/notification à l’envoi
+    function fireConfetti() {
+      confetti({ particleCount: 48, spread: 60, origin: { y: 0.6 } });
+    }
+    function sentEffect(btn) {
+      btn.classList.add('sent');
+      setTimeout(()=>{ btn.classList.remove('sent'); },520);
+    }
+
+    // Soumission
+    forms.wa.onsubmit = function(e){
+      e.preventDefault();
+      const nom = document.getElementById('wa-name').value.trim();
+      const msg = document.getElementById('wa-msg').value.trim();
+      if(!msg) return;
+      const final = encodeURIComponent((nom?("Je m'appelle "+nom+". "):"")+msg);
+      window.open("https://wa.me/"+waNumber+"?text="+final, "_blank");
+      sentEffect(forms.wa.querySelector(".send-btn"));
+      fireConfetti();
+      document.getElementById('wa-ok').textContent="Merci, votre message est parti ! ✔";
+      setTimeout(()=>{document.getElementById('wa-ok').textContent="";},1800);
+      forms.wa.reset();
+    };
+    forms.mail.onsubmit = function(e){
+      e.preventDefault();
+      const nom = document.getElementById('mail-name').value.trim();
+      const msg = document.getElementById('mail-msg').value.trim();
+      if(!msg) return;
+      const subject = encodeURIComponent("Contact ultra dynamique");
+      const body = encodeURIComponent((nom?("Je m'appelle "+nom+". "):"")+msg);
+      window.open("mailto:"+mailTo+"?subject="+subject+"&body="+body, "_blank");
+      sentEffect(forms.mail.querySelector(".send-btn"));
+      fireConfetti();
+      document.getElementById('mail-ok').textContent="Merci, votre message est parti ! ✔";
+      setTimeout(()=>{document.getElementById('mail-ok').textContent="";},1800);
+      forms.mail.reset();
+    };
+    forms.tg.onsubmit = function(e){
+      e.preventDefault();
+      const nom = document.getElementById('tg-name').value.trim();
+      const msg = document.getElementById('tg-msg').value.trim();
+      if(!msg) return;
+      window.open("https://t.me/"+tgUser, "_blank");
+      sentEffect(forms.tg.querySelector(".send-btn"));
+      fireConfetti();
+      document.getElementById('tg-ok').textContent="Ouverture du chat Telegram ! ✔";
+      setTimeout(()=>{document.getElementById('tg-ok').textContent="";},1800);
+      forms.tg.reset();
+    };
+  </script>
+</body>
+</html>

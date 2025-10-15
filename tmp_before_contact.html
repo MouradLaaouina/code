@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact complet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <!-- Tailwind pour les styles utilitaires utilisés par la navigation/pied de page -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { background: var(--bg); color: var(--text); font-family: "Segoe UI", Arial, sans-serif; min-height: 100vh; margin: 0; }
+    .contact-card { background: var(--card); color: var(--text); border-radius: 18px; box-shadow: var(--shadow, 0 8px 28px rgba(0,0,0,0.12)); max-width: 450px; width: 100%; padding: 38px 24px 27px 24px; animation: fade-in 1.1s both;}
+    @keyframes fade-in {from { opacity: 0; transform: translateY(38px);} to { opacity:1; transform: translateY(0);}}
+    .contact-card h1 { color: #109d3b; margin-bottom: 16px; font-size: 1.6em;}
+    .choice-group { display: flex; justify-content: center; gap: 14px; margin-bottom: 10px;}
+    .choice-btn { border: 2px solid #109d3b; color: #109d3b; background: #f0f5f0; border-radius: 8px; padding: 9px 13px 8px 13px; font-size:1em; cursor:pointer; min-width:108px; gap:7px; display:flex; align-items: center; transition:0.2s;}
+    .choice-btn.active, .choice-btn:hover { background: #109d3b; color: #fff; box-shadow:0 2px 12px rgba(16,157,59,0.09);}
+    form {display:flex;flex-direction:column;align-items:stretch;margin-top:10px;gap:11px;}
+    input, textarea, select {padding: 10px 12px; border-radius: 6px; border: 1px solid var(--border, #109d3b55); font-size: 1em; outline: none; background: var(--card); color: var(--text); font-family: inherit;}
+    textarea{resize:vertical;min-height:36px;}
+    button[type="submit"] {background: #109d3b; color: #fff; border: none; border-radius:7px; font-size: 1.07em; padding:11px 0;margin-top:8px;cursor:pointer;font-weight:600;transition:.18s;}
+    button[type="submit"]:hover {background:#0d7c2d;}
+    .callback {margin-top: 16px; color: #109d3b;}
+    .rgpd {font-size:.91em;color:#555;display:flex;align-items:center;gap:7px;}
+    .sociaux {text-align:center;margin-top:22px;}
+    .sociaux a{margin:0 10px;color:#109d3b;font-size:1.3em;transition:.14s;}
+    .sociaux a:hover{color:#0d7c2d;}
+    @media (max-width:500px){.contact-card{padding:14px 2px;}.choice-btn{font-size:.89em;}}
+  </style>
+  <!-- Charge la navigation dynamique -->
+  <script src="script/nav-loader.js" defer></script>
+</head>
+<body>
+  <main class="container mx-auto px-4 py-12">
+    <div class="flex justify-center">
+      <div class="contact-card">
+    <h1>Contactez-nous</h1>
+    <div class="choice-group">
+      <button class="choice-btn active" id="btn-wa"><i class="fab fa-whatsapp"></i> WhatsApp</button>
+      <button class="choice-btn" id="btn-mail"><i class="fa fa-envelope"></i> Email</button>
+      <button class="choice-btn" id="btn-tg"><i class="fab fa-telegram"></i> Telegram</button>
+    </div>
+    <form id="contact-form">
+      <select id="motif" required>
+        <option value="" disabled selected>Motif du contact</option>
+        <option value="Commande">Commande</option>
+        <option value="SAV">SAV/Support</option>
+        <option value="Infos">Demande d'info</option>
+        <option value="Partenariat">Partenariat</option>
+      </select>
+      <input type="text" id="user-name" name="name" placeholder="Votre nom" required maxlength="40">
+      <input type="datetime-local" id="rendezvous" name="rendezvous">
+      <textarea id="user-message" name="message" placeholder="Votre message (max 250 caractères)" required maxlength="250"></textarea>
+      <div class="rgpd">
+        <input type="checkbox" required id="rgpd">
+        <label for="rgpd">J'accepte le traitement de mes données pour ce contact</label>
+      </div>
+      <button type="submit" id="send-btn">Envoyer via WhatsApp</button>
+    </form>
+    <div class="callback" id="callback"></div>
+    <div class="sociaux">
+      <a href="https://instagram.com/toncompte" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="https://linkedin.com/in/tonprofil" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+      <a href="https://facebook.com/tonpage" target="_blank" title="Facebook"><i class="fab fa-facebook"></i></a>
+      </div>
+    </div>
+  </main>
+  <script>
+    // Personnalise ici :
+    const waNumber = "212660047133"; // WhatsApp
+    const mailTo = "admou2025@hotmail.com"; // Email
+    const tgUser = "Mrlaa12"; // Telegram username sans @
+
+    const btnWa = document.getElementById('btn-wa');
+    const btnMail = document.getElementById('btn-mail');
+    const btnTg = document.getElementById('btn-tg');
+    const sendBtn = document.getElementById('send-btn');
+    const callback = document.getElementById('callback');
+    let mode = 'wa'; // Défaut
+
+    btnWa.onclick = function(e){mode='wa';switchActive(btnWa);}
+    btnMail.onclick = function(e){mode='mail';switchActive(btnMail);}
+    btnTg.onclick = function(e){mode='tg';switchActive(btnTg);}
+
+    function switchActive(btn){
+      [btnWa,btnMail,btnTg].forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      if(btn===btnWa) sendBtn.textContent="Envoyer via WhatsApp";
+      if(btn===btnMail) sendBtn.textContent="Envoyer par Email";
+      if(btn===btnTg) sendBtn.textContent="Envoyer via Telegram";
+    }
+
+    document.getElementById('contact-form').onsubmit = function(e){
+      e.preventDefault();
+      const nom = document.getElementById('user-name').value.trim();
+      const msg = document.getElementById('user-message').value.trim();
+      const motif = document.getElementById('motif').value;
+      const rdv = document.getElementById('rendezvous').value;
+      if(!nom || !msg || !motif) return;
+
+      let fullMsg = "Motif : "+motif+"%0A";
+      fullMsg += "Nom : "+nom+"%0A";
+      fullMsg += "Message : "+msg+"%0A";
+      if(rdv) fullMsg += "Rendez-vous souhaité : "+rdv;
+
+      if(mode==="wa"){
+        window.open("https://wa.me/"+waNumber+"?text="+fullMsg,"_blank");
+        callback.textContent="Redirection vers WhatsApp…";
+      } else if(mode==="mail"){
+        window.open("mailto:"+mailTo+"?subject=Contact depuis le site&body="+fullMsg,"_blank");
+        callback.textContent="Ouverture de votre messagerie…";
+      } else if(mode==="tg"){
+        window.open("https://t.me/"+tgUser,"_blank");
+        callback.textContent="Redirection vers Telegram…";
+      }
+      setTimeout(()=>{callback.textContent="";},2300);
+      document.getElementById('contact-form').reset();
+    };
+  </script>
+
+  <!-- Charge le pied de page dynamique -->
+  <script src="script/footer-loader.js" defer></script>
+</body>
+</html>
